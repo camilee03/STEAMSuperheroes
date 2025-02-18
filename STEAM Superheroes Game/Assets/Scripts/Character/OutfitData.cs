@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class OutfitData : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    int size = 20;
+    private void Update()
     {
-        
+        transform.localScale = Vector3.one * size;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnMouseEnter()
     {
-        
+        Debug.Log("Enter");
+        size = 30;
+    }
+    private void OnMouseExit()
+    {
+        size = 20;
     }
 }
