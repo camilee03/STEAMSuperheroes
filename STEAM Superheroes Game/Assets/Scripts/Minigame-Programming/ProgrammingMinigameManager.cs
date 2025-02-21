@@ -16,9 +16,10 @@ public class ProgrammingMinigameManager : MonoBehaviour
     public enum CODE_COMMAND
     {
         START,
-        MOVE,
-        TURNLEFT,
-        TURNRIGHT,
+        MOVEUP,
+        MOVELEFT,
+        MOVERIGHT,
+        MOVEDOWN,
         IF,
         ELSE,
     }
@@ -33,14 +34,13 @@ public class ProgrammingMinigameManager : MonoBehaviour
     [SerializeField] float droneSpeed = 1;
     [SerializeField] Transform droneOrigin;
     bool moveDrone = false;
-    bool rotateDrone = false;
-    int droneRotationModifier = 1;
 
     [Header("Satellites")]
     [SerializeField] Text satelliteText = null;
     [SerializeField] GameObject satellitePickupPrefab = null;
     [SerializeField] Transform[] satelliteOrigins = null;
     List<GameObject> satelliteParts = new List<GameObject>();
+    [SerializeField] Transform pickupsContainer = null;
 
     //System
     [Header("System")]
@@ -48,6 +48,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     [SerializeField] GameObject codeBlocker = null;
     float executeWaitSeconds = 1;
     int skip = 0; //for IF
+    CODE_COMMAND previousCommand;
 
     [Header("DEBUG")]
     [SerializeField] int piecesCollected = 0;
@@ -60,17 +61,6 @@ public class ProgrammingMinigameManager : MonoBehaviour
     {
         selectSystem = FindFirstObjectByType<CodeSelectSystem>();
         ResetGame();
-    }
-    private void Update()
-    {
-        if (moveDrone)
-        {
-
-        }
-        if (rotateDrone)
-        {
-
-        }
     }
     public void StartRun() //Called By Button
     {
@@ -90,20 +80,22 @@ public class ProgrammingMinigameManager : MonoBehaviour
     {
         if (stopRun)
         {
-            StopRun();
+            StopRun(true);
         } else
         {
             Debug.Log("Looping code");
             StartExecutingCode();
         }
     }
-    public void StopRun()
+    public void StopRun(bool reset)
     {
         CodeEditable = true;
         codeBlocker.SetActive(false);
         stopRun = true;
         playInProgress = false;
-        ResetGame();
+        if (reset) {
+            ResetGame();
+        }
     }
     public IEnumerator ExecuteCode() 
     {
@@ -119,7 +111,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
             }
             if (stopRun)
             {
-                StopRun();
+                StopRun(true);
                 break;
             }
 
@@ -127,7 +119,6 @@ public class ProgrammingMinigameManager : MonoBehaviour
             ParseCommand(cb.GetCommand());
             yield return new WaitForSeconds(executeWaitSeconds);
             moveDrone = false;
-            rotateDrone = false;
             droneRB.linearVelocity = Vector2.zero;
         }
     }
@@ -138,21 +129,31 @@ public class ProgrammingMinigameManager : MonoBehaviour
         switch (codeType)
         {
             case CODE_COMMAND.START:
+                previousCommand = CODE_COMMAND.START;
                 Command_START();
                 break;
-            case CODE_COMMAND.MOVE:
-                Command_MOVE();
+            case CODE_COMMAND.MOVEUP:
+                previousCommand = CODE_COMMAND.MOVEUP;
+                Command_MOVEUP();
                 break;
-            case CODE_COMMAND.TURNLEFT:
-                Command_TURNLEFT();
+            case CODE_COMMAND.MOVELEFT:
+                previousCommand = CODE_COMMAND.MOVELEFT;
+                Command_MOVELEFT();
                 break;
-            case CODE_COMMAND.TURNRIGHT:
-                Command_TURNRIGHT();
+            case CODE_COMMAND.MOVERIGHT:
+                previousCommand = CODE_COMMAND.MOVERIGHT;
+                Command_MOVERIGHT();
+                break;
+            case CODE_COMMAND.MOVEDOWN:
+                previousCommand = CODE_COMMAND.MOVEDOWN;
+                Command_MOVEDOWN();
                 break;
             case CODE_COMMAND.IF:
+                previousCommand = CODE_COMMAND.IF;
                 Command_IF();
                 break;
             case CODE_COMMAND.ELSE:
+                previousCommand = CODE_COMMAND.ELSE;
                 Command_ELSE();
                 break;
         }
@@ -162,23 +163,28 @@ public class ProgrammingMinigameManager : MonoBehaviour
         Debug.Log("Start");
         executeWaitSeconds = .1f; //Change this later
     }
-    void Command_MOVE()
+    void Command_MOVEUP()
     {
         Debug.Log("Move");
         executeWaitSeconds = 1; //Change this later
         droneRB.linearVelocity = Vector2.up * droneSpeed;
     }
-    void Command_TURNLEFT()
+    void Command_MOVELEFT()
     {
         Debug.Log("Turn Left");
         executeWaitSeconds = 1; //Change this later
         droneRB.linearVelocity = -Vector2.right * droneSpeed;
     }
-    void Command_TURNRIGHT()
+    void Command_MOVERIGHT()
     {
         Debug.Log("Turn Right");
         executeWaitSeconds = 1; //Change this later
-        droneRB.linearVelocity = Vector2.right  * droneSpeed;
+        droneRB.linearVelocity = Vector2.right * droneSpeed;
+    }
+    void Command_MOVEDOWN() {
+        Debug.Log("Turn Right");
+        executeWaitSeconds = 1; //Change this later
+        droneRB.linearVelocity = -Vector2.up * droneSpeed;
     }
     void Command_IF()
     {
@@ -210,15 +216,16 @@ public class ProgrammingMinigameManager : MonoBehaviour
         satelliteParts.Clear();
         for(int i = 0; i < satelliteOrigins.Length; i++)
         {
-            Debug.Log("HI");
             GameObject sat = Instantiate(satellitePickupPrefab, satelliteOrigins[i].position, satelliteOrigins[i].rotation);
+            sat.transform.parent = pickupsContainer.transform;
             satelliteParts.Add(sat);
         }
         piecesCollected = 0;
     }
     void WinGame()
     {
-        //TODO
+        gameEnded = true;
+        StopRun(false);
     }
     public bool CodeEditable
     {
@@ -234,7 +241,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
             satelliteText.text = "Satellite Pieces Collected: " + piecesCollected;
             if (piecesCollected >= satelliteOrigins.Length)
             {
-                gameEnded = true;
+                WinGame();
             }
         }
     }
