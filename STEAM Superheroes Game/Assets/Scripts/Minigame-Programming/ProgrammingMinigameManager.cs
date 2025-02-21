@@ -7,6 +7,8 @@ using static UnityEngine.UI.Image;
 using UnityEngine.Rendering.RenderGraphModule;
 using UnityEngine.UIElements;
 using UnityEditor;
+using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 
 public class ProgrammingMinigameManager : MonoBehaviour
@@ -21,21 +23,33 @@ public class ProgrammingMinigameManager : MonoBehaviour
         ELSE,
     }
 
+    //INIT
+    CodeSelectSystem selectSystem = null;
+
+    [Header("Drone")]
+    [SerializeField] GameObject dronePrefab;
     [SerializeField] GameObject drone = null;
     Rigidbody2D droneRB = null;
     [SerializeField] float droneSpeed = 1;
     [SerializeField] Transform droneOrigin;
+    bool moveDrone = false;
+    bool rotateDrone = false;
+    int droneRotationModifier = 1;
 
+    [Header("Satellites")]
+    [SerializeField] Text satelliteText = null;
+    [SerializeField] GameObject satellitePickupPrefab = null;
+    [SerializeField] Transform[] satelliteOrigins = null;
+    List<GameObject> satelliteParts = new List<GameObject>();
+
+    //System
+    [Header("System")]
     bool codeEditable = true;
-
+    [SerializeField] GameObject codeBlocker = null;
     float executeWaitSeconds = 1;
-
-    CodeSelectSystem selectSystem = null;
-
-    int skip = 0;
+    int skip = 0; //for IF
 
     [Header("DEBUG")]
-    [SerializeField] int maxPiecesCollected = 3;
     [SerializeField] int piecesCollected = 0;
     [SerializeField] bool playInProgress = false;
     [SerializeField] bool stopRun = false;
@@ -45,24 +59,54 @@ public class ProgrammingMinigameManager : MonoBehaviour
     private void Start()
     {
         selectSystem = FindFirstObjectByType<CodeSelectSystem>();
-        droneRB = drone.GetComponent<Rigidbody2D>();
+        ResetGame();
+    }
+    private void Update()
+    {
+        if (moveDrone)
+        {
+
+        }
+        if (rotateDrone)
+        {
+
+        }
     }
     public void StartRun() //Called By Button
     {
+        CodeEditable = false;
+        codeBlocker.SetActive(true);
         stopRun = false;
         playInProgress = true;
         ResetGame();
-        StartCoroutine(ExecuteCode());
+        StartExecutingCode();
+    }
+    void StartExecutingCode()
+    {
+        StartCoroutine(ExecuteCode()); //THIS MIGHT CAUSE MEMORY LEAKS W/ INFINITE LOOPING?
+        //LoopExecutingCode();
+    }
+    void LoopExecutingCode()
+    {
+        if (stopRun)
+        {
+            StopRun();
+        } else
+        {
+            Debug.Log("Looping code");
+            StartExecutingCode();
+        }
     }
     public void StopRun()
     {
+        CodeEditable = true;
+        codeBlocker.SetActive(false);
         stopRun = true;
         playInProgress = false;
         ResetGame();
     }
     public IEnumerator ExecuteCode() 
     {
-
         List<GameObject> codeBlocksList = selectSystem.GetCodeBlocksList();
         Debug.Log("Executing Code list in codeBlocks");
         //run the code from codeblocks
@@ -82,6 +126,8 @@ public class ProgrammingMinigameManager : MonoBehaviour
             CodeBlock cb = codeBlocksList[i].GetComponent<CodeBlock>();
             ParseCommand(cb.GetCommand());
             yield return new WaitForSeconds(executeWaitSeconds);
+            moveDrone = false;
+            rotateDrone = false;
             droneRB.linearVelocity = Vector2.zero;
         }
     }
@@ -115,25 +161,24 @@ public class ProgrammingMinigameManager : MonoBehaviour
     {
         Debug.Log("Start");
         executeWaitSeconds = .1f; //Change this later
-
     }
     void Command_MOVE()
     {
         Debug.Log("Move");
         executeWaitSeconds = 1; //Change this later
-        droneRB.linearVelocity = transform.up * droneSpeed;
+        droneRB.linearVelocity = Vector2.up * droneSpeed;
     }
     void Command_TURNLEFT()
     {
         Debug.Log("Turn Left");
         executeWaitSeconds = 1; //Change this later
-        drone.transform.Rotate(Vector3.forward, 90);
+        droneRB.linearVelocity = -Vector2.right * droneSpeed;
     }
     void Command_TURNRIGHT()
     {
         Debug.Log("Turn Right");
         executeWaitSeconds = 1; //Change this later
-        drone.transform.Rotate(Vector3.forward, -90);
+        droneRB.linearVelocity = Vector2.right  * droneSpeed;
     }
     void Command_IF()
     {
@@ -149,7 +194,27 @@ public class ProgrammingMinigameManager : MonoBehaviour
     }
     private void ResetGame()
     {
+        Destroy(drone);
+        drone = Instantiate(dronePrefab, droneOrigin.position, droneOrigin.rotation);
+        droneRB = drone.GetComponent<Rigidbody2D>();
         drone.transform.position = droneOrigin.position;
+
+        //satellite clear & spawn
+        if (satelliteParts.Count > 0)
+        {
+            for(int i = 0; i <  satelliteParts.Count; i++)
+            {
+                Destroy(satelliteParts[i]);
+            }
+        }
+        satelliteParts.Clear();
+        for(int i = 0; i < satelliteOrigins.Length; i++)
+        {
+            Debug.Log("HI");
+            GameObject sat = Instantiate(satellitePickupPrefab, satelliteOrigins[i].position, satelliteOrigins[i].rotation);
+            satelliteParts.Add(sat);
+        }
+        piecesCollected = 0;
     }
     void WinGame()
     {
@@ -160,12 +225,17 @@ public class ProgrammingMinigameManager : MonoBehaviour
         get { return codeEditable; }
         set { codeEditable = value; }
     }
-    public void IncreasePiecesCollected()
+    public void IncreasePiecesCollected(GameObject satellitePickup)
     {
-        piecesCollected++;
-        if (piecesCollected > maxPiecesCollected)
+        if (satelliteParts.Contains(satellitePickup))
         {
-            gameEnded = true;
+            satelliteParts.Remove(satellitePickup);
+            piecesCollected++;
+            satelliteText.text = "Satellite Pieces Collected: " + piecesCollected;
+            if (piecesCollected >= satelliteOrigins.Length)
+            {
+                gameEnded = true;
+            }
         }
     }
 }
