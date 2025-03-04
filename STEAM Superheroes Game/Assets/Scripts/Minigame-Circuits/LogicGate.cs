@@ -14,30 +14,50 @@ public class LogicGate : MonoBehaviour
         NOT,
     }//To Add: XOR, etc.
 
+    [SerializeField] string gateCodeName = "A";
+    CircuitsManager circuitManager = null;
     [Header("Gate Visuals")]
     [SerializeField] GameObject[] gateVisuals; //0 = START, 1 = END, 2 = EMPTY, 3 = AND, 4 = OR, 5 = NOT
     [SerializeField] protected LOGIC_STATE gateState = LOGIC_STATE.EMPTY;
     [SerializeField] bool canBeChanged = true;
+    [Header("Dropdown")]
+    CircuitsDropdown circuitsDropdown = null;
+    [Header("Input/Output Gates")]
+    [SerializeField] LogicGate[] inputGates;
+    [SerializeField] LogicGate[] outputGates;
     [Header("DEBUG")]
     [SerializeField] protected bool value = true;
 
-    LogicGate[] inputGates;
-    LogicGate[] outputGates;
 
-    
-    public void OpenDropdown() //Called by clicking on itself (as a button)
+    private void Start()
     {
-        //enable dropdown ui
+        circuitsDropdown = FindFirstObjectByType<CircuitsDropdown>();
+        circuitManager = FindFirstObjectByType<CircuitsManager>();
     }
-    public void CloseDropdown()
+    public void ToggleDropdown() //Called by clicking on itself (as a button)
     {
-        //close dropdown ui
+        Debug.Log("Toggle Dropdown");
+        circuitsDropdown.ToggleDropdown(this);
     }
-    public void ChangeGate(LOGIC_STATE state) //Called by button for logic gate
+    public void ChangeGate(int choice) //Called by button for logic gate
     {
         if (!canBeChanged) return;
-        gateState = state;
-        CloseDropdown();
+
+        switch (choice)
+        {
+            case 0:
+                gateState = LOGIC_STATE.EMPTY;
+                break;
+            case 1:
+                gateState = LOGIC_STATE.AND;
+                break;
+            case 2:
+                gateState = LOGIC_STATE.OR;
+                break;
+            case 3:
+                gateState = LOGIC_STATE.NOT;
+                break;
+        }
         UpdateVisual();
         UpdateLogic();
     }
@@ -93,13 +113,11 @@ public class LogicGate : MonoBehaviour
                 newValue = Logic_NOT();
                 break;
         }
+        value = newValue;
         //when call funciton, return to newvalue
-        if(newValue != preStateSave)
+        for (int i = 0; i < outputGates.Length; i++)
         {
-            for (int i = 0; i < outputGates.Length; i++)
-            {
-                outputGates[i].UpdateLogic();
-            }
+            outputGates[i].UpdateLogic();
         }
     }
     #region GateLogic
@@ -112,8 +130,13 @@ public class LogicGate : MonoBehaviour
         bool save = inputGates[0].value;
         if (save)
         {
-            //turn on light
-            //end the game as win
+            circuitManager.AddSuccess();
+            gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.green;
+
+        } else
+        {
+            circuitManager.RemoveSuccess();
+            gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.black;
         }
         return save;
     }
