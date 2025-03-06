@@ -2,14 +2,6 @@ using UnityEngine;
 
 public class Globals : MonoBehaviour
 {
-    public int score;
-    public int unlockedLevels;
-    public int helmetNum;
-    public int faceNum;
-    public int shirtNum;
-    public int armNum;
-    public int pantsNum;
-
 
     public static Globals Instance { get; private set; }
     private void Awake()
@@ -18,5 +10,14 @@ public class Globals : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(this); }
         else { Instance = this; DontDestroyOnLoad(this); }
     }
+
+
+    public int score = 0;
+    public int unlockedLevels = 0;
+    public int helmetNum = 0;
+    public int faceNum = 0;
+    public int shirtNum = 0;
+    public int armNum = 0;
+    public int pantsNum = 0;
 
 }

@@ -15,7 +15,6 @@ public class OutfitManager : MonoBehaviour
     public RawImage[] pantImages;
     public RawImage[] faceImages;
     public RawImage[] armImages;
-    public RawImage[] helmetImages;
     RawImage[] currentImages;
 
     [SerializeField] RawImage finalShirt;
@@ -28,7 +27,9 @@ public class OutfitManager : MonoBehaviour
     bool isShirts;
     bool isFace;
     bool isArms;
+    int helmetNum = 0;
 
+    int skinColor = -1;
 
     // color scheme will be determined by %4 values
 
@@ -51,26 +52,67 @@ public class OutfitManager : MonoBehaviour
     {
         int outfitNum = (outfit - 1) * currentImages.Length + colorScheme;
 
-        if (isPants) 
-        { 
+        if (isPants)
+        {
             finalPant.texture = pantImages[outfit - 1].texture;
-            Globals.Instance.pantsNum = outfitNum; 
+            Globals.Instance.pantsNum = outfitNum;
         }
-        if (isShirts) 
-        { 
+        if (isShirts)
+        {
             finalShirt.texture = shirtImages[outfit - 1].texture;
             Globals.Instance.shirtNum = outfitNum;
         }
-        if (isFace) 
-        { 
+
+        if (isFace)
+        {
             finalFace.texture = faceImages[outfit - 1].texture;
             Globals.Instance.faceNum = outfitNum;
+
+            if (skinColor == -1)
+            {
+                finalArms.texture = arm[colorScheme];
+                Globals.Instance.armNum = colorScheme;
+            }
+            else
+            {
+                int armOutfit = 0;
+                if (Globals.Instance.armNum > 0) { armOutfit = Globals.Instance.armNum - skinColor; }
+
+                finalArms.texture = arm[armOutfit + colorScheme];
+                Globals.Instance.armNum = armOutfit + colorScheme;
+            }
+
+            skinColor = colorScheme;
         }
-        if (isArms) 
-        { 
+        if (isArms)
+        {
             finalArms.texture = armImages[outfit - 1].texture;
             Globals.Instance.armNum = outfitNum;
+            if (skinColor == -1)
+            {
+                finalFace.texture = face[colorScheme];
+                Globals.Instance.faceNum = colorScheme;
+            }
+            else
+            {
+                int faceOutfit = 0;
+                if (Globals.Instance.faceNum > 0) { faceOutfit = Globals.Instance.faceNum - skinColor; }
+
+                finalFace.texture = face[faceOutfit + colorScheme];
+                Globals.Instance.faceNum = faceOutfit + colorScheme;
+            }
+
+            skinColor = colorScheme;
         }
+    }
+
+    public void SwitchHelmet()
+    {
+        if (helmetNum < 1) { helmetNum++; }
+        else { helmetNum = 0; }
+        finalHelmet.texture = helmet[helmetNum];
+
+        Globals.Instance.helmetNum = helmetNum;
     }
 
     void CycleThroughOutfits()
@@ -79,7 +121,7 @@ public class OutfitManager : MonoBehaviour
         {
             currentImages[i].enabled = true;
 
-            currentImages[i].texture = currentTextures[i * currentImages.Length + colorScheme];
+            currentImages[i].texture = currentTextures[i * colorVar + colorScheme];
         }
     }
 
@@ -93,24 +135,27 @@ public class OutfitManager : MonoBehaviour
 
     public void ChangeOutfitType(string name)
     {
-        isPants = false;
-        isShirts = false;
-        isArms = false;
-        isFace = false;
-
-        DeactivateImages(pantImages);
-        DeactivateImages(shirtImages);
-        DeactivateImages(faceImages);
-        DeactivateImages(armImages);
-        DeactivateImages(helmetImages);
-
-        switch (name)
+        if (name != "helmet")
         {
-            case "pants": isPants = true; currentImages = pantImages; currentTextures = pants; colorVar = 4; break;
-            case "shirt": isShirts = true; currentImages = shirtImages; currentTextures = shirts; colorVar = 4; break;
-            case "face": isFace = true; currentImages = faceImages; currentTextures = face; colorVar = 6; break;
-            case "arms": isArms = true; currentImages = armImages; currentTextures = arm; colorVar = 6; break;
+            isPants = false;
+            isShirts = false;
+            isArms = false;
+            isFace = false;
+
+            DeactivateImages(pantImages);
+            DeactivateImages(shirtImages);
+            DeactivateImages(faceImages);
+            DeactivateImages(armImages);
+
+            switch (name)
+            {
+                case "pants": isPants = true; currentImages = pantImages; currentTextures = pants; colorVar = 4; break;
+                case "shirt": isShirts = true; currentImages = shirtImages; currentTextures = shirts; colorVar = 4; break;
+                case "face": isFace = true; currentImages = faceImages; currentTextures = face; colorVar = 6; break;
+                case "arms": isArms = true; currentImages = armImages; currentTextures = arm; colorVar = 6; break;
+            }
         }
+        else { SwitchHelmet(); }
     }
 
     public void ChangeColorScheme()
