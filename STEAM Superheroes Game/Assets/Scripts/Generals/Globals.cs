@@ -15,9 +15,9 @@ public class Globals : MonoBehaviour
     public int score = 0;
     public int unlockedLevels = 0;
     public int helmetNum = 0;
-    public int faceNum = 0;
+    public int faceNum = 4;
     public int shirtNum = 0;
-    public int armNum = 0;
+    public int armNum = 4;
     public int pantsNum = 0;
 
 }

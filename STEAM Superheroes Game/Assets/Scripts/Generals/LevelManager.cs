@@ -50,7 +50,19 @@ public class LevelManager : MonoBehaviour
     /// <summary> Starts the game based on the current loaded level </summary>
     public void Play()
     {
-        if (unlockedLevels[currentLevelIndex]) { StartCoroutine(ChangeScene(currentLevelIndex)); }
+        LoadScene(currentLevelIndex);
+    }
+
+    /// <summary> Loads Main Menu </summary>
+    public void LoadMainMenu()
+    {
+        StartCoroutine(ChangeScene(0));
+    }
+
+    /// <summary> Loads Scene by index number</summary>
+    public void LoadScene(int index)
+    {
+        if (unlockedLevels[currentLevelIndex]) { StartCoroutine(ChangeScene(index)); }
         else { Debug.Log("The current level is locked"); }
     }
 

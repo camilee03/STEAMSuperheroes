@@ -38,9 +38,14 @@ public class OutfitManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeOutfitType("pants");
+        ChangeOutfitType("face");
 
-        // put something here to set the outfit if the globals are different 
+        // sets the outfit if the globals are different 
+        finalShirt.texture = shirts[Globals.Instance.shirtNum];
+        finalPant.texture = pants[Globals.Instance.pantsNum];
+        finalFace.texture = face[Globals.Instance.faceNum];
+        finalArms.texture = arm[Globals.Instance.armNum];
+        finalHelmet.texture = helmet[Globals.Instance.helmetNum];
     }
 
     private void Update()
@@ -76,7 +81,7 @@ public class OutfitManager : MonoBehaviour
             else
             {
                 int armOutfit = 0;
-                if (Globals.Instance.armNum > 0) { armOutfit = Globals.Instance.armNum - skinColor; }
+                if (Globals.Instance.armNum >= 0) { armOutfit = Globals.Instance.armNum - skinColor; }
 
                 finalArms.texture = arm[armOutfit + colorScheme];
                 Globals.Instance.armNum = armOutfit + colorScheme;
@@ -88,6 +93,7 @@ public class OutfitManager : MonoBehaviour
         {
             finalArms.texture = armImages[outfit - 1].texture;
             Globals.Instance.armNum = outfitNum;
+
             if (skinColor == -1)
             {
                 finalFace.texture = face[colorScheme];
@@ -96,7 +102,7 @@ public class OutfitManager : MonoBehaviour
             else
             {
                 int faceOutfit = 0;
-                if (Globals.Instance.faceNum > 0) { faceOutfit = Globals.Instance.faceNum - skinColor; }
+                if (Globals.Instance.faceNum >= 0) { faceOutfit = Globals.Instance.faceNum - skinColor; }
 
                 finalFace.texture = face[faceOutfit + colorScheme];
                 Globals.Instance.faceNum = faceOutfit + colorScheme;
@@ -158,9 +164,8 @@ public class OutfitManager : MonoBehaviour
         else { SwitchHelmet(); }
     }
 
-    public void ChangeColorScheme()
+    public void ChangeColorScheme(int newColors)
     {
-        if (colorScheme < colorVar-1) { colorScheme++; }
-        else { colorScheme = 0; }
+        colorScheme = newColors;
     }
 }
