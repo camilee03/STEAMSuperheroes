@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static System.TimeZoneInfo;
 
 public class LevelManager : MonoBehaviour
 {
     bool[] unlockedLevels;
 
-    public float transitionTime = 0.2f;
-
-    public Vector3 tempStart;
-
-    [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] Texture2D[] levelImages;
+    [SerializeField] RawImage currentLevel;
+    int currentLevelIndex;
 
     private void Start()
     {
         unlockedLevels = new bool[UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings]; // number of scenes in build
+        unlockedLevels[0] = true; unlockedLevels[1] = true; unlockedLevels[2] = true;
         //for (int i = 0; i < unlockedLevels.Length; i++) // remove if unlocking mechanism exists
         //{
         //    unlockedLevels[i] = true;
@@ -35,6 +35,7 @@ public class LevelManager : MonoBehaviour
         PlayerPrefs.SetInt("pants", Globals.Instance.pantsNum);
     }
 
+    /// <summary> Load current gamestate </summary>
     public void LoadGame()
     {
         Globals.Instance.score = PlayerPrefs.GetInt("score");
@@ -46,25 +47,30 @@ public class LevelManager : MonoBehaviour
         Globals.Instance.pantsNum = PlayerPrefs.GetInt("pants");
     }
 
-    /// <summary> Loads next level if unlocked </summary>
-    public void LoadNextLevel(Vector3 startPosition)
+    /// <summary> Starts the game based on the current loaded level </summary>
+    public void Play()
     {
-        if (unlockedLevels[SceneManager.GetActiveScene().buildIndex])
-        {
-            StartCoroutine(ChangeScene(SceneManager.GetActiveScene().buildIndex + 1));
-        }
-        else { Debug.LogError("Level hasn't been unlocked"); }
+        LoadScene(currentLevelIndex);
     }
 
-    /// <summary> Load scene by specific name </summary>
-    public void LoadSceneByName(string sceneName, Vector3 startPosition)
+    /// <summary> Loads Main Menu </summary>
+    public void LoadMainMenu()
     {
-        int buildIndex = SceneUtility.GetBuildIndexByScenePath(sceneName);
-        //Scene loadScene = SceneManager.GetSceneByName(sceneName);
+        StartCoroutine(ChangeScene(0));
+    }
 
-        if (buildIndex == -1) { Debug.LogWarning("Scene '" + sceneName + "' not found in Build Settings."); }
-        else if (unlockedLevels[buildIndex]) { StartCoroutine(ChangeScene(buildIndex)); }
+    /// <summary> Loads Scene by index number</summary>
+    public void LoadScene(int index)
+    {
+        if (unlockedLevels[currentLevelIndex]) { StartCoroutine(ChangeScene(index)); }
         else { Debug.Log("The current level is locked"); }
+    }
+
+    /// <summary> Determines what the current level to load is </summary>
+    public void SetNewLevel(int level)
+    {
+        currentLevelIndex = level + 2;
+        currentLevel.texture = levelImages[level];
     }
 
     /// <summary> Unlocks the level after the current level </summary>
@@ -76,7 +82,6 @@ public class LevelManager : MonoBehaviour
     /// <summary> Change Scene coroutine </summary>
     IEnumerator ChangeScene(int sceneIndex)
     {
-        yield return new WaitForSeconds(transitionTime);
         AsyncOperation aSync = SceneManager.LoadSceneAsync(sceneIndex);
 
         while (!aSync.isDone)
