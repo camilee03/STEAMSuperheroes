@@ -65,7 +65,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     public void StartRun() //Called By Button
     {
         CodeEditable = false;
-        codeBlocker.SetActive(true);
+        //codeBlocker.SetActive(true);
         stopRun = false;
         playInProgress = true;
         ResetGame();
@@ -90,7 +90,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     public void StopRun(bool reset)
     {
         CodeEditable = true;
-        codeBlocker.SetActive(false);
+        //codeBlocker.SetActive(false);
         stopRun = true;
         playInProgress = false;
         if (reset) {
