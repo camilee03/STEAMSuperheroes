@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 
 public class ProgrammingMinigameManager : MonoBehaviour
@@ -36,7 +37,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     bool moveDrone = false;
 
     [Header("Satellites")]
-    [SerializeField] Text satelliteText = null;
+    [SerializeField] TextMeshProUGUI satelliteText = null;
     [SerializeField] GameObject satellitePickupPrefab = null;
     [SerializeField] Transform[] satelliteOrigins = null;
     List<GameObject> satelliteParts = new List<GameObject>();
