@@ -3,6 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public static SceneLoader SceneLoaderInstance { get; private set; }
+    private void Awake() {
+        if (SceneLoaderInstance != null && SceneLoaderInstance != this) {
+            Destroy(this);
+        } else {
+            SceneLoaderInstance = this;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
     public void LoadSceneByName(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
