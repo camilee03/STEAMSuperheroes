@@ -12,17 +12,32 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterCreator.unity
     guid: 1cdbbe5eb25421e4fb04e228b3347c60
   - enabled: 1
+    path: Assets/Scenes/Pre-Minigames/PreMinigame1.unity
+    guid: b67d234334250154a9f23e12c85515c1
+  - enabled: 1
     path: Assets/Scenes/Minigame1.unity
     guid: c5b354537a1da6d4aaa576e67f6324d6
+  - enabled: 1
+    path: Assets/Scenes/Pre-Minigames/PreMinigame2.unity
+    guid: 10d52e37bb623b24db09b355ed12c52b
   - enabled: 1
     path: Assets/Scenes/Minigame2.unity
     guid: 87a44e1818383fc4ca2ef3d23aa13512
   - enabled: 1
+    path: Assets/Scenes/Pre-Minigames/PreMinigame3.unity
+    guid: caa65c02d06f8a6419420d053e60ac5a
+  - enabled: 1
     path: Assets/Scenes/Minigame3.unity
     guid: 8be4013b28fac4d41a7673363788cce9
   - enabled: 1
+    path: Assets/Scenes/Pre-Minigames/PreMinigame4.unity
+    guid: c3f0a1b865f497e48aebced75ca70e28
+  - enabled: 1
     path: Assets/Scenes/Minigame4.unity
     guid: 083b7c7dddf1c1946b2cdaa0f4c93fe9
+  - enabled: 1
+    path: Assets/Scenes/Pre-Minigames/PreMinigame5.unity
+    guid: e51c3445218ab724982ac726d6768cfc
   - enabled: 1
     path: Assets/Scenes/Minigame5.unity
     guid: 661881dfc9ead40449e8b8fdd3c4916e

@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 
 public class ProgrammingMinigameManager : MonoBehaviour
@@ -36,7 +37,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     bool moveDrone = false;
 
     [Header("Satellites")]
-    [SerializeField] Text satelliteText = null;
+    [SerializeField] TextMeshProUGUI satelliteText = null;
     [SerializeField] GameObject satellitePickupPrefab = null;
     [SerializeField] Transform[] satelliteOrigins = null;
     List<GameObject> satelliteParts = new List<GameObject>();
@@ -50,11 +51,15 @@ public class ProgrammingMinigameManager : MonoBehaviour
     int skip = 0; //for IF
     CODE_COMMAND previousCommand;
 
+    [Header("UI")]
+    [SerializeField] GameObject winScreenCanvas = null;
+
     [Header("DEBUG")]
     [SerializeField] int piecesCollected = 0;
     [SerializeField] bool playInProgress = false;
     [SerializeField] bool stopRun = false;
     [SerializeField] bool gameEnded = false;
+
 
 
     private void Start()
@@ -226,6 +231,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     {
         gameEnded = true;
         StopRun(false);
+        winScreenCanvas.SetActive(true);
     }
     public bool CodeEditable
     {
