@@ -51,11 +51,15 @@ public class ProgrammingMinigameManager : MonoBehaviour
     int skip = 0; //for IF
     CODE_COMMAND previousCommand;
 
+    [Header("UI")]
+    [SerializeField] GameObject winScreenCanvas = null;
+
     [Header("DEBUG")]
     [SerializeField] int piecesCollected = 0;
     [SerializeField] bool playInProgress = false;
     [SerializeField] bool stopRun = false;
     [SerializeField] bool gameEnded = false;
+
 
 
     private void Start()
@@ -227,6 +231,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     {
         gameEnded = true;
         StopRun(false);
+        winScreenCanvas.SetActive(true);
     }
     public bool CodeEditable
     {
