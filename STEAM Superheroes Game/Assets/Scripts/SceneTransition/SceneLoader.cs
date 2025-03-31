@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    [SerializeField] int mainMenuIdx = 1;
     public static SceneLoader SceneLoaderInstance { get; private set; }
     private void Awake() {
         if (SceneLoaderInstance != null && SceneLoaderInstance != this) {
@@ -27,11 +28,15 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(mainMenuIdx);
 
     }
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public int GetActiveSceneIdx()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
     }
 }
