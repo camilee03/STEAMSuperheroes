@@ -16,11 +16,10 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         unlockedLevels = new bool[UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings]; // number of scenes in build
-        unlockedLevels[0] = true; unlockedLevels[1] = true; unlockedLevels[2] = true;
-        //for (int i = 0; i < unlockedLevels.Length; i++) // remove if unlocking mechanism exists
-        //{
-        //    unlockedLevels[i] = true;
-        //}
+        for (int i = 0; i < unlockedLevels.Length; i++) // remove if unlocking mechanism exists
+        {
+            unlockedLevels[i] = true;
+        }
     }
 
     /// <summary> Save current gamestate </summary>

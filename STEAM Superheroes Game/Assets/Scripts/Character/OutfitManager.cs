@@ -53,24 +53,59 @@ public class OutfitManager : MonoBehaviour
         CycleThroughOutfits();
     }
 
+    public void RandomizeOutfit()
+    {
+        int initialColorScheme = colorScheme;
+        int initialSkinColor = skinColor;
+        string currentOutfitType = "face";
+        if (isArms) { currentOutfitType = "arms"; }
+        if (isShirts) { currentOutfitType = "shirt"; }
+        if (isPants) { currentOutfitType = "pants"; }
+
+        // Randomize skin
+        colorScheme = Random.Range(0, 5);
+        skinColor = colorScheme;
+        ChangeOutfitType("face");
+        SetOutfit(Random.Range(1, 4));
+
+        ChangeOutfitType("arms");
+        SetOutfit(Random.Range(1, 3));
+
+        // Randomize clothes
+        colorScheme = Random.Range(0, 3);
+        ChangeOutfitType("shirt");
+        SetOutfit(Random.Range(1, 5));
+
+        ChangeOutfitType("pants");
+        SetOutfit(Random.Range(1, 5));
+
+        int changeHelmet = Random.Range(0, 2);
+        if (changeHelmet == 1) { ChangeOutfitType("helmet"); }
+
+        colorScheme = initialColorScheme;
+        skinColor = initialSkinColor;
+        ChangeOutfitType(currentOutfitType);
+    }
+
     public void SetOutfit(int outfit)
     {
-        int outfitNum = (outfit - 1) * currentImages.Length + colorScheme;
+        int outfitNum = (outfit - 1) * colorVar + colorScheme;
+        Debug.Log("OUTFIT: " + outfitNum + " COLOR: " + colorScheme);
 
         if (isPants)
         {
-            finalPant.texture = pantImages[outfit - 1].texture;
+            finalPant.texture = pants[outfitNum];
             Globals.Instance.pantsNum = outfitNum;
         }
         if (isShirts)
         {
-            finalShirt.texture = shirtImages[outfit - 1].texture;
+            finalShirt.texture = shirts[outfitNum];
             Globals.Instance.shirtNum = outfitNum;
         }
 
         if (isFace)
         {
-            finalFace.texture = faceImages[outfit - 1].texture;
+            finalFace.texture = face[outfitNum];
             Globals.Instance.faceNum = outfitNum;
 
             if (skinColor == -1)
@@ -91,7 +126,7 @@ public class OutfitManager : MonoBehaviour
         }
         if (isArms)
         {
-            finalArms.texture = armImages[outfit - 1].texture;
+            finalArms.texture = arm[outfitNum];
             Globals.Instance.armNum = outfitNum;
 
             if (skinColor == -1)
