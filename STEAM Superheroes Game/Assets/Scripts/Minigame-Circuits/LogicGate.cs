@@ -25,6 +25,7 @@ public class LogicGate : MonoBehaviour
     [Header("Input/Output Gates")]
     [SerializeField] LogicGate[] inputGates;
     [SerializeField] LogicGate[] outputGates;
+    bool endGate = false;
     [Header("DEBUG")]
     [SerializeField] protected bool value = true;
 
@@ -130,19 +131,26 @@ public class LogicGate : MonoBehaviour
         bool save = inputGates[0].value;
         if (save)
         {
-            circuitManager.AddSuccess();
-            gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.green;
-
+            if (!endGate) {
+                Debug.Log("adding success");
+                endGate = true;
+                circuitManager.AddSuccess();
+                gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.green;
+            }
         } else
         {
-            circuitManager.RemoveSuccess();
-            gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.black;
+            if (endGate) {
+                Debug.Log("removing success");
+                endGate = false;
+                circuitManager.RemoveSuccess();
+                gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.black;
+            }
         }
         return save;
     }
     bool Logic_EMPTY()
     {
-        return value;
+        return false;
     }
     bool Logic_AND()
     {
