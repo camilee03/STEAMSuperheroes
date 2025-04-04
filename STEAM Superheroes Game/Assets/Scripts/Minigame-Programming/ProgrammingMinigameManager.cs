@@ -52,7 +52,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     CODE_COMMAND previousCommand;
 
     [Header("UI")]
-    [SerializeField] GameObject winScreenCanvas = null;
+    [SerializeField] WinLevel winLevel = null;
 
     [Header("DEBUG")]
     [SerializeField] int piecesCollected = 0;
@@ -231,7 +231,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
     {
         gameEnded = true;
         StopRun(false);
-        winScreenCanvas.SetActive(true);
+        winLevel.ActivateCanvas();
     }
     public bool CodeEditable
     {

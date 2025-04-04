@@ -3,6 +3,7 @@ using UnityEngine;
 public class CircuitsManager : MonoBehaviour
 {
     [SerializeField] int requiredSuccesses = 3;
+    [SerializeField] WinLevel winLevel = null;
     [Header("DEBUG")]
     [SerializeField] int currentSuccesses = 0;
 
@@ -20,7 +21,7 @@ public class CircuitsManager : MonoBehaviour
     }
     public void TriggerWinGame()
     {
-        //TODO - win the game
-        Debug.Log("Win the Game");
+        Debug.Log("Won the level");
+        winLevel.ActivateCanvas();
     }
 }
