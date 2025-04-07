@@ -3,12 +3,12 @@ using TMPro;
 
 public class WinLevel : MonoBehaviour
 {
+    [Header("Level Specific - Be Sure to Change")]
     [SerializeField] float levelCode = 0; //change this to whichever level you are on in inspector
-
     [SerializeField] int currencyAmountToAdd = 0;
 
+    [Header("References - Do Not Change")]
     [SerializeField] GameObject winScreenCanvas = null;
-
     [SerializeField] TextMeshProUGUI currencyText = null;
 
     //This opens win screen and declares level won
