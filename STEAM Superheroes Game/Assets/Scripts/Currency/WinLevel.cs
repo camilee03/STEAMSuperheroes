@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WinLevel : MonoBehaviour
 {
-    [SerializeField] float levelCode = 0; //change this to whichever level you are on
+    [SerializeField] float levelCode = 0; //change this to whichever level you are on in inspector
 
     [SerializeField] int currencyAmountToAdd = 0;
 
