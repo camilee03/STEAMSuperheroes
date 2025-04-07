@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class WinLevel : MonoBehaviour
 {
@@ -8,10 +9,13 @@ public class WinLevel : MonoBehaviour
 
     [SerializeField] GameObject winScreenCanvas = null;
 
+    [SerializeField] TextMeshProUGUI currencyText = null;
+
     //This opens win screen and declares level won
     public void ActivateCanvas()
     {
         winScreenCanvas.SetActive(true);
+        currencyText.text = "";
         CompleteLevel();
     }
     public void DeactivateCanvas() { //Most Likely not going to be used
@@ -20,6 +24,8 @@ public class WinLevel : MonoBehaviour
     public void CompleteLevel() {
         //Check if the level is not already completed in Globals.Instance
         if (!Globals.Instance.levelsCompleted.Contains(levelCode)) {
+            //Show Text - TODO - update to visual intstead of text
+            currencyText.text = "Gained " + currencyAmountToAdd + " Currency!";
 
             //Add to score
             Globals.Instance.score += currencyAmountToAdd;
@@ -31,6 +37,7 @@ public class WinLevel : MonoBehaviour
         }
     }
     public void ToMainMenu() {
+        DeactivateCanvas();
         FindFirstObjectByType<SceneLoader>().LoadMainMenu();
     }
 }
