@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -9,7 +10,6 @@ public class VidPlayer : MonoBehaviour
     VideoPlayer videoPlayer;
     public string videoFileName;
     [SerializeField] Button button;
-    [SerializeField] GameObject levelMenu;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,6 +44,6 @@ public class VidPlayer : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        levelMenu.SetActive(true);
+        SceneManager.LoadScene(2);
     }
 }

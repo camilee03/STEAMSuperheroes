@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        unlockedLevels = new bool[UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings]; // number of scenes in build
+        unlockedLevels = new bool[SceneManager.sceneCountInBuildSettings]; // number of scenes in build
         for (int i = 0; i < unlockedLevels.Length; i++) // remove if unlocking mechanism exists
         {
             unlockedLevels[i] = true;
@@ -55,7 +55,7 @@ public class LevelManager : MonoBehaviour
     /// <summary> Loads Main Menu </summary>
     public void LoadMainMenu()
     {
-        StartCoroutine(ChangeScene(0));
+        StartCoroutine(ChangeScene(2));
     }
 
     /// <summary> Loads Scene by index number</summary>
@@ -68,7 +68,7 @@ public class LevelManager : MonoBehaviour
     /// <summary> Determines what the current level to load is </summary>
     public void SetNewLevel(int level)
     {
-        currentLevelIndex = level + 2;
+        currentLevelIndex = (level + 2) * 2; // 4,6,8,10,12
         currentLevel.texture = levelImages[level];
     }
 

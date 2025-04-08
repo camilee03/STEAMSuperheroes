@@ -5,7 +5,7 @@ public class WinLevel : MonoBehaviour
 {
     [Header("Level Specific - Be Sure to Change")]
     [SerializeField] float levelCode = 0; //change this to whichever level you are on in inspector
-    [SerializeField] int currencyAmountToAdd = 0;
+    public int currencyAmountToAdd = 0;
 
     [Header("References - Do Not Change")]
     [SerializeField] GameObject winScreenCanvas = null;

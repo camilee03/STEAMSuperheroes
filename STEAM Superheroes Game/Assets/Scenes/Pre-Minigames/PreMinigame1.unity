@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2639904995607301927, guid: 07d220319303b4347a98bc5831a7f3f3, type: 3}
+      propertyPath: mainMenuIdx
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7584803906747523738, guid: 07d220319303b4347a98bc5831a7f3f3, type: 3}
       propertyPath: m_Name
       value: SceneLoader
@@ -559,6 +563,12 @@ PrefabInstance:
     - target: {fileID: 3562971271250226840, guid: ed8ec12607153914ba3362aa2be46791, type: 3}
       propertyPath: m_Name
       value: Pre-Minigame Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6603333268051952976, guid: ed8ec12607153914ba3362aa2be46791, type: 3}
+      propertyPath: m_text
+      value: Established on the moon base, scientists are now mining for different
+        materials to research more about the moon. The Ideal needs your help to mine
+        the minerals, using as little resources as possible.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

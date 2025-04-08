@@ -26,7 +26,7 @@ public class HexBehavior : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            mineralManager.RemoveClick();
+            mineralManager.AddClick();
             Destroy(gameObject);
         }
     }

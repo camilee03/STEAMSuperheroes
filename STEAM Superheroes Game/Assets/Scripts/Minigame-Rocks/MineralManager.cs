@@ -5,24 +5,24 @@ public class MineralManager : MonoBehaviour
 {
     int numIlmenite, numAnorthosite, numMareBasalt, numHelium, numParadot;
     int totalClicks = 5;
-    int numClicksRemaining;
+    int numClicksUsed;
+    int totalMinerals = 3;
     [SerializeField] TMP_Text infoText;
     [SerializeField] TMP_Text clickText;
+    [SerializeField] WinLevel winLevel;
 
-
-    private void Start()
-    {
-        numClicksRemaining = totalClicks;
-    }
 
     private void Update()
     {
         infoText.text = "Ilmenite: " + numIlmenite
             + "\nAnorthosite: " + numAnorthosite
             + "\nMare Basalt: " + numMareBasalt
-            + "\nParadot: " + numParadot;
+            + "\nParadot: " + numParadot
+            + "\nHelium: " + numHelium;
 
-        clickText.text = "Clicks remaining: " + numClicksRemaining;
+        clickText.text = "Resources used: " + numClicksUsed;
+
+        if (numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) { winLevel.ActivateCanvas(); }
     }
 
     public void AddMineral(int mineralType)
@@ -37,8 +37,8 @@ public class MineralManager : MonoBehaviour
         }
     }
 
-    public void RemoveClick()
+    public void AddClick()
     {
-        numClicksRemaining--;
+        numClicksUsed++;
     }
 }
