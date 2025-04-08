@@ -4,11 +4,15 @@ using UnityEngine;
 public class MineralManager : MonoBehaviour
 {
     int numIlmenite, numAnorthosite, numMareBasalt, numHelium, numParadot;
-    TMP_Text infoText;
+    int totalClicks = 5;
+    int numClicksRemaining;
+    [SerializeField] TMP_Text infoText;
+    [SerializeField] TMP_Text clickText;
+
 
     private void Start()
     {
-        infoText = GetComponentInChildren<TMP_Text>();
+        numClicksRemaining = totalClicks;
     }
 
     private void Update()
@@ -17,6 +21,8 @@ public class MineralManager : MonoBehaviour
             + "\nAnorthosite: " + numAnorthosite
             + "\nMare Basalt: " + numMareBasalt
             + "\nParadot: " + numParadot;
+
+        clickText.text = "Clicks remaining: " + numClicksRemaining;
     }
 
     public void AddMineral(int mineralType)
@@ -29,5 +35,10 @@ public class MineralManager : MonoBehaviour
             case 3: numHelium++; break;
             case 4: numParadot++; break;
         }
+    }
+
+    public void RemoveClick()
+    {
+        numClicksRemaining--;
     }
 }

@@ -7,10 +7,12 @@ public class HexBehavior : MonoBehaviour
     Color highlightedColor;
     Color opaqueColor;
     Material mat;
+    MineralManager mineralManager;
 
     private void Start()
     {
         mat = GetComponent<Renderer>().material;
+        mineralManager = GameObject.Find("MineralManager").GetComponent<MineralManager>();
         opaqueColor = mat.color;
         highlightedColor = Color.gray;
     }
@@ -24,6 +26,7 @@ public class HexBehavior : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            mineralManager.RemoveClick();
             Destroy(gameObject);
         }
     }
