@@ -10,6 +10,9 @@ public class CodeSelectSystem : MonoBehaviour
     [SerializeField] float addSpaceMargin = 10;
     Vector2 originPos;
 
+    [Header("BlockParent")]
+    [SerializeField] Transform blockParentTransform = null;
+
     [Header("DEBUG")]
     [SerializeField] GameObject selectedObject = null;
     [SerializeField] Color savedColor;
@@ -23,24 +26,30 @@ public class CodeSelectSystem : MonoBehaviour
     //Block Selected
     public void SelectBlock(GameObject obj)
     {
-        if(selectedObject != null && selectedObject != obj)
+        if (gameManager.GetPlayStatus()) return;
+        if(selectedObject != null && obj != selectedObject)
         {
-            //UNHIGHLIGHT Previous One 
-            selectedObject.GetComponent<Image>().color = savedColor;
-            selectedObject = null;
+            DeselectBlockUnhighlight();
+            SelectBlockHighlight(obj);
         }
-        
         if (obj == selectedObject)
         {
-            //UNHIGHLIGHT IT
-            obj.GetComponent<Image>().color = savedColor;
-            selectedObject = null;
+            DeselectBlockUnhighlight();
         } else
         {
-            selectedObject = obj;
-            savedColor = obj.GetComponent<Image>().color;
-            obj.GetComponent<Image>().color = Color.yellow;
+            SelectBlockHighlight(obj);
         }
+    }
+    void SelectBlockHighlight(GameObject obj)
+    {
+        selectedObject = obj;
+        savedColor = obj.GetComponent<Image>().color;
+        obj.GetComponent<Image>().color = Color.yellow;
+    }
+    public void DeselectBlockUnhighlight()
+    {
+        selectedObject.GetComponent<Image>().color = savedColor;
+        selectedObject = null;
     }
     public void AddCodeBlockAfterSelected(GameObject newBlock)
     {
@@ -50,28 +59,34 @@ public class CodeSelectSystem : MonoBehaviour
             Destroy(newBlock);
             return;
         }
+
+
         int originIdx = codeBlocks.IndexOf(selectedObject);
         codeBlocks.Insert(originIdx + 1, newBlock);
         Debug.Log("Added Gameobject: " + newBlock + " to codeBlocks");
-        SelectBlock(newBlock);
-        UpdateVisual();
+        DeselectBlockUnhighlight();
+        SelectBlockHighlight(newBlock);
+
+        newBlock.transform.parent = blockParentTransform.transform; return;
+        //UpdateVisual();
     }
     public void RemoveSelectedBlock() //Called By Button
     {
         if (!gameManager.CodeEditable) return;
         if (!selectedObject) return;
+        Debug.Log("Attempting to remove block: " + selectedObject.name);
         if (selectedObject.GetComponent<CodeBlock>().GetCanBeTrashed())
         {
             codeBlocks.Remove(selectedObject);
             Debug.Log("Removed Gameobject: " + selectedObject + " from codeBlocks");
             Destroy(selectedObject);
             selectedObject = null;
-            UpdateVisual();
+            //UpdateVisual();
         }
     }
     public void RemoveAllBlocks() //Called By Button
     {
-        selectedObject = null;
+        Debug.Log("Attempting to clear blocks");
         GameObject start = codeBlocks[0];
         for (int i = 1; i < codeBlocks.Count; i++)
         {
@@ -80,21 +95,21 @@ public class CodeSelectSystem : MonoBehaviour
         codeBlocks.Clear();
         codeBlocks.Add(start);
         selectedObject = null;
-        UpdateVisual();
+        //UpdateVisual();
     }
-    void UpdateVisual()
-    {
-        GameObject header = codeBlocks[0];
-        header.transform.position = originPos;
-        if (codeBlocks.Count > 1)
-        {
-            for (int i = 1; i < codeBlocks.Count; i++)
-            {
-                Vector2 newPos = new Vector2(originPos.x, originPos.y - (i * addSpaceMargin));
-                codeBlocks[i].transform.position = newPos;
-            }
-        }
-    }
+    //void UpdateVisual()
+    //{
+    //    GameObject header = codeBlocks[0];
+    //    header.transform.position = originPos;
+    //    if (codeBlocks.Count > 1)
+    //    {
+    //        for (int i = 1; i < codeBlocks.Count; i++)
+    //        {
+    //            Vector2 newPos = new Vector2(originPos.x, originPos.y - (i * addSpaceMargin));
+    //            codeBlocks[i].transform.position = newPos;
+    //        }
+    //    }
+    //}
     public List<GameObject> GetCodeBlocksList()
     {
         return codeBlocks;
