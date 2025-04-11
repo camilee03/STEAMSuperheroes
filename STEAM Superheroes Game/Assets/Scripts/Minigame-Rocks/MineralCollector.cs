@@ -13,7 +13,7 @@ public class MineralCollector : MonoBehaviour
 
     private void Update()
     {
-        if (hexsCollided <= 2)
+        if (hexsCollided <= 1)
         {
             manager.AddMineral(mineralType.GetHashCode());
             Destroy(gameObject);
@@ -43,4 +43,7 @@ public class MineralCollector : MonoBehaviour
     // Paradot or olivine
     // mining Helium? From sun rays. Solar wind radiation / space weathering - nanoscale helium 
     //try to mine in the light parts of the moon cuz space weathering only affects the top 50nm of the crust
+
+
+    // 3 Levels: Dark side of moon (Basalt, Pyroxene, Plagioclase, Olivine), Light side (Helium), Both (Ilmenite)
 }

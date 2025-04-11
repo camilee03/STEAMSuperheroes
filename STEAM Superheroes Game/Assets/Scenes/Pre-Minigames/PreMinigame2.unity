@@ -419,6 +419,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1744838974914437205, guid: d012fecf9b51b7247a4130e9059f16db, type: 3}
+      propertyPath: m_text
+      value: 'Space is littered with zombie space junk. H4x needs your help to navigate
+        drones and recover destroyed satellite parts to figure out why the nearest
+        satellite broke down.
+
+
+        Press start to start adding directions. When
+        you''re ready to test, press the play button.
+
+        .'
+      objectReference: {fileID: 0}
     - target: {fileID: 6061845788422577701, guid: d012fecf9b51b7247a4130e9059f16db, type: 3}
       propertyPath: m_Pivot.x
       value: 0

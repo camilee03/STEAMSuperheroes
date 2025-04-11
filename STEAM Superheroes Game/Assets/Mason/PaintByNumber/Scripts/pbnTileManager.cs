@@ -10,7 +10,7 @@ public class pbnTileManager : MonoBehaviour
     private Tilemap tilemap;
     public TileBase selectedTile;
     public TileBase outlineTile;
-    [SerializeField] Text winText;
+    [SerializeField] WinLevel winLevel;
     [SerializeField] List<Vector3Int> checkPositions;
     [SerializeField] List<TileBase> correctTiles;
     
@@ -64,7 +64,7 @@ public class pbnTileManager : MonoBehaviour
         }
         if(count == checkPositions.Count)
         {
-            winText.text = "You Win!!!";
+            winLevel.ActivateCanvas();
         }
     }
 }

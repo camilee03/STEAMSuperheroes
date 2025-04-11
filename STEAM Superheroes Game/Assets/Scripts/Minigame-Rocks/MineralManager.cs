@@ -6,7 +6,7 @@ public class MineralManager : MonoBehaviour
     int numIlmenite, numAnorthosite, numMareBasalt, numHelium, numParadot;
     int totalClicks = 5;
     int numClicksUsed;
-    int totalMinerals = 3;
+    int totalMinerals = 5;
     [SerializeField] TMP_Text infoText;
     [SerializeField] TMP_Text clickText;
     [SerializeField] WinLevel winLevel;
@@ -15,14 +15,15 @@ public class MineralManager : MonoBehaviour
     private void Update()
     {
         infoText.text = "Ilmenite: " + numIlmenite
-            + "\nAnorthosite: " + numAnorthosite
-            + "\nMare Basalt: " + numMareBasalt
-            + "\nParadot: " + numParadot
             + "\nHelium: " + numHelium;
+
+        //+"\nAnorthosite: " + numAnorthosite
+        //+ "\nMare Basalt: " + numMareBasalt
+        //+ "\nParadot: " + numParadot
 
         clickText.text = "Resources used: " + numClicksUsed;
 
-        if (numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) { winLevel.ActivateCanvas(); }
+        if (numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) { winLevel.currencyAmountToAdd = 5 - (numClicksUsed - 16)/2; winLevel.ActivateCanvas(); }
     }
 
     public void AddMineral(int mineralType)

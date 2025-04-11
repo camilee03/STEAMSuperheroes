@@ -503,6 +503,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pre-Minigame Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6113691694115681717, guid: b0140b35873cf814b99b45a0a20ef48a, type: 3}
+      propertyPath: m_text
+      value: 'The alarm system is faulty and has activated without danger. Cosmic
+        Commander needs your help to disable the system by fixing the damaged circuits.
+
+
+        Click
+        nodes to change how much circuits can go through them. Light up the end goals
+        to win!'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GridManager : MonoBehaviour
 {
     public DropArea[] importantDropAreas;
-    public Text winText;
+    [SerializeField] WinLevel winLevel;
 
     void Update()
     {
@@ -31,7 +31,7 @@ public class GridManager : MonoBehaviour
 
         if (allShapesDropped && count == importantDropAreas.Length)
         {
-            winText.text = "You WIN!!!!!!";
+            winLevel.ActivateCanvas();
         }
     }
 }
