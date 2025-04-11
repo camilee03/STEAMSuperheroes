@@ -14,33 +14,49 @@ public class LogicGate : MonoBehaviour
         NOT,
     }//To Add: XOR, etc.
 
-    [SerializeField] string gateCodeName = "A";
+    [Header("Managing")]
+    [SerializeField] string gateName = "";
     CircuitsManager circuitManager = null;
-    [Header("Gate Visuals")]
-    [SerializeField] GameObject[] gateVisuals; //0 = START, 1 = END, 2 = EMPTY, 3 = AND, 4 = OR, 5 = NOT
-    [SerializeField] protected LOGIC_STATE gateState = LOGIC_STATE.EMPTY;
-    [SerializeField] bool canBeChanged = true;
-    [Header("Dropdown")]
+    bool endGateCheck = false;
     CircuitsDropdown circuitsDropdown = null;
+    [Header("Gate Visuals")]
+    [SerializeField] GameObject highlight = null;
+    [SerializeField] GameObject[] gateVisuals; //0 = START, 1 = END, 2 = EMPTY, 3 = AND, 4 = OR, 5 = NOT
+    [SerializeField] bool canBeChanged = true;
+    [Header("Gate Choice Menu - For Changable Only")]
+    [SerializeField] bool andAllowed = true;
+    [SerializeField] bool orAllowed = true;
+    [SerializeField] bool notAllowed = true;
     [Header("Input/Output Gates")]
     [SerializeField] LogicGate[] inputGates;
     [SerializeField] LogicGate[] outputGates;
-    bool endGate = false;
     [Header("DEBUG")]
-    [SerializeField] protected bool value = true;
+    [SerializeField] protected LOGIC_STATE gateState = LOGIC_STATE.EMPTY;
+    [SerializeField] protected bool gateValue = false;
 
 
     private void Start()
     {
         circuitsDropdown = FindFirstObjectByType<CircuitsDropdown>();
         circuitManager = FindFirstObjectByType<CircuitsManager>();
+        highlight.SetActive(false);
+        if (gateState == LOGIC_STATE.START) gateValue = true;
     }
-    public void ToggleDropdown() //Called by clicking on itself (as a button)
+    //Called by clicking on itself (as a button)
+    public void ToggleDropdown() 
     {
-        Debug.Log("Toggle Dropdown");
-        circuitsDropdown.ToggleDropdown(this);
+        circuitsDropdown.OpenChoiceMenu(this, andAllowed, orAllowed, notAllowed);
     }
-    public void ChangeGate(int choice) //Called by button for logic gate
+    //Called by CircuitsManager
+    public void Highlight() {
+        highlight.SetActive(true);
+    }
+    //Called by CircuitsManager
+    public void DeHighlight() {
+        highlight.SetActive(false);
+    }
+    //Called by CircuitsManager
+    public void ChangeGate(int choice) 
     {
         if (!canBeChanged) return;
 
@@ -48,15 +64,19 @@ public class LogicGate : MonoBehaviour
         {
             case 0:
                 gateState = LOGIC_STATE.EMPTY;
+                Debug.Log("Changing gate into EMPTY");
                 break;
             case 1:
                 gateState = LOGIC_STATE.AND;
+                Debug.Log("Changing gate into AND");
                 break;
             case 2:
                 gateState = LOGIC_STATE.OR;
+                Debug.Log("Changing gate into OR");
                 break;
             case 3:
                 gateState = LOGIC_STATE.NOT;
+                Debug.Log("Changing gate into NOT");
                 break;
         }
         UpdateVisual();
@@ -88,20 +108,24 @@ public class LogicGate : MonoBehaviour
         }
 
     }
-    public void UpdateLogic() //Called by self or other gate
+    void DisableAllVisuals() {
+        for (int i = 0; i < gateVisuals.Length; i++) {
+            gateVisuals[i].SetActive(false);
+        }
+    }
+    //Called by self or other gate
+    public void UpdateLogic() 
     {
-        //potentially changes the output here. then, if it does, call the same method in the output. should send a cascade.
-        bool preStateSave = value;
-        bool newValue = value;
+        bool newValue = false;
         switch (gateState)
         {
-            case LOGIC_STATE.START:  //this should never be called
+            case LOGIC_STATE.START: 
                 newValue = Logic_START();
                 break;
             case LOGIC_STATE.END:
                 newValue = Logic_END();
                 break;
-            case LOGIC_STATE.EMPTY:  //this should never be called
+            case LOGIC_STATE.EMPTY:
                 newValue = Logic_EMPTY();
                 break;
             case LOGIC_STATE.AND:
@@ -114,39 +138,45 @@ public class LogicGate : MonoBehaviour
                 newValue = Logic_NOT();
                 break;
         }
-        value = newValue;
-        //when call funciton, return to newvalue
-        for (int i = 0; i < outputGates.Length; i++)
-        {
+        if(newValue != gateValue) {
+            gateValue = newValue;
+
+            CascadeUpdateLogic();
+        }
+    }
+    //Called from this script or StartPoint script
+    protected void CascadeUpdateLogic() {
+        for (int i = 0; i < outputGates.Length; i++) {
             outputGates[i].UpdateLogic();
         }
     }
     #region GateLogic
     bool Logic_START()
     {
-        return value;
+        return gateValue;
     }
-    bool Logic_END() //can only take 1 input
+    //Unofficial rule - This gate can only take 1 input
+    bool Logic_END() 
     {
-        bool save = inputGates[0].value;
-        if (save)
+        bool inputValue = inputGates[0].GetGateValue();
+        if (inputValue)
         {
-            if (!endGate) {
+            if (!endGateCheck) {
                 Debug.Log("adding success");
-                endGate = true;
+                endGateCheck = true;
                 circuitManager.AddSuccess();
                 gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.green;
             }
         } else
         {
-            if (endGate) {
+            if (endGateCheck) {
                 Debug.Log("removing success");
-                endGate = false;
+                endGateCheck = false;
                 circuitManager.RemoveSuccess();
                 gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.black;
             }
         }
-        return save;
+        return inputValue;
     }
     bool Logic_EMPTY()
     {
@@ -157,7 +187,7 @@ public class LogicGate : MonoBehaviour
         bool temporaryState = true;
         for (int i = 0; i < inputGates.Length; i++)
         {
-            if (!inputGates[i].value)
+            if (!inputGates[i].GetGateValue())
             {
                 temporaryState = false;
                 break;
@@ -170,7 +200,7 @@ public class LogicGate : MonoBehaviour
         bool temporaryState = false;
         for (int i = 0; i < inputGates.Length; i++)
         {
-            if (inputGates[i].value)
+            if (inputGates[i].GetGateValue())
             {
                 temporaryState = true;
                 break;
@@ -180,27 +210,12 @@ public class LogicGate : MonoBehaviour
     }
     bool Logic_NOT()//can only take 1 input
     {
-        return !inputGates[0].value;
+        return !inputGates[0].GetGateValue();
     }
     #endregion
-    void DisableAllVisuals()
+    
+    public bool GetGateValue()
     {
-        for(int i = 0; i < gateVisuals.Length; i++)
-        {
-            gateVisuals[i].SetActive(false);
-        }
+        return gateValue;
     }
-    ////If normal version is too long/doesnt work, try this method (1 subclass per gate):
-    //protected virtual void ExecuteLogic() //Overridden in subclasses
-    //{
-    //    return;
-    //}
-
-    public bool GetValue()
-    {
-        return value;
-    }
-
-
-
 }

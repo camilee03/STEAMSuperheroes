@@ -60,15 +60,13 @@ public class CodeSelectSystem : MonoBehaviour
             return;
         }
 
-
         int originIdx = codeBlocks.IndexOf(selectedObject);
         codeBlocks.Insert(originIdx + 1, newBlock);
         Debug.Log("Added Gameobject: " + newBlock + " to codeBlocks");
         DeselectBlockUnhighlight();
         SelectBlockHighlight(newBlock);
 
-        newBlock.transform.parent = blockParentTransform.transform; return;
-        //UpdateVisual();
+        newBlock.transform.SetParent(blockParentTransform.transform);
     }
     public void RemoveSelectedBlock() //Called By Button
     {
@@ -81,7 +79,6 @@ public class CodeSelectSystem : MonoBehaviour
             Debug.Log("Removed Gameobject: " + selectedObject + " from codeBlocks");
             Destroy(selectedObject);
             selectedObject = null;
-            //UpdateVisual();
         }
     }
     public void RemoveAllBlocks() //Called By Button
@@ -95,21 +92,7 @@ public class CodeSelectSystem : MonoBehaviour
         codeBlocks.Clear();
         codeBlocks.Add(start);
         selectedObject = null;
-        //UpdateVisual();
     }
-    //void UpdateVisual()
-    //{
-    //    GameObject header = codeBlocks[0];
-    //    header.transform.position = originPos;
-    //    if (codeBlocks.Count > 1)
-    //    {
-    //        for (int i = 1; i < codeBlocks.Count; i++)
-    //        {
-    //            Vector2 newPos = new Vector2(originPos.x, originPos.y - (i * addSpaceMargin));
-    //            codeBlocks[i].transform.position = newPos;
-    //        }
-    //    }
-    //}
     public List<GameObject> GetCodeBlocksList()
     {
         return codeBlocks;
