@@ -53,6 +53,8 @@ public class ProgrammingMinigameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] WinLevel winLevel = null;
+    [SerializeField] GameObject[] codeButtons = null;
+    [SerializeField] GameObject stopButton = null;
 
     [Header("DEBUG")]
     [SerializeField] int piecesCollected = 0;
@@ -74,6 +76,9 @@ public class ProgrammingMinigameManager : MonoBehaviour
         stopRun = false;
         playInProgress = true;
         ResetGame();
+        EnableDisableCodeButtons(false);
+        stopButton.SetActive(true);
+        selectSystem.DeselectBlockUnhighlight();
         StartExecutingCode();
     }
     void StartExecutingCode()
@@ -101,6 +106,8 @@ public class ProgrammingMinigameManager : MonoBehaviour
         if (reset) {
             ResetGame();
         }
+        EnableDisableCodeButtons(true);
+        stopButton.SetActive(false);
     }
     public IEnumerator ExecuteCode() 
     {
@@ -249,6 +256,17 @@ public class ProgrammingMinigameManager : MonoBehaviour
             {
                 WinGame();
             }
+        }
+    }
+    public bool GetPlayStatus()
+    {
+        return playInProgress;
+    }
+    void EnableDisableCodeButtons(bool check) //true for turn on, false for turn off
+    {
+        for(int i = 0; i < codeButtons.Length; i++)
+        {
+            codeButtons[i].SetActive(check);
         }
     }
 }
