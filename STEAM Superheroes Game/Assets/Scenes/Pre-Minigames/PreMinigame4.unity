@@ -419,6 +419,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2422349382975294876, guid: bfb4e88cf2442f64e9b7046d36b8b899, type: 3}
+      propertyPath: m_text
+      value: 'Jonathan Bourgh seems to be the culprit behind the recent failures.
+        We were able to hack into his system. See if you can figure out the code
+        to navigate through his systems to find an answer.
+
+
+        Drag shapes
+        into the center to match the pattern on the left!'
+      objectReference: {fileID: 0}
     - target: {fileID: 5425744690482390612, guid: bfb4e88cf2442f64e9b7046d36b8b899, type: 3}
       propertyPath: m_Name
       value: Pre-Minigame Canvas
