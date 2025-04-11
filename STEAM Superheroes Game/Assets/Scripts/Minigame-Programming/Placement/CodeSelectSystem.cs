@@ -48,8 +48,10 @@ public class CodeSelectSystem : MonoBehaviour
     }
     public void DeselectBlockUnhighlight()
     {
-        selectedObject.GetComponent<Image>().color = savedColor;
-        selectedObject = null;
+        if (selectedObject) {
+            selectedObject.GetComponent<Image>().color = savedColor;
+            selectedObject = null;
+        }
     }
     public void AddCodeBlockAfterSelected(GameObject newBlock)
     {
