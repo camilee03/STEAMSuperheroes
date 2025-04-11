@@ -18,9 +18,13 @@ public class CodeSpawner : MonoBehaviour
     }
     public void Spawn() //Called By Button
     {
-        GameObject cb = Instantiate(codeBlock, parentCanvas.transform);
-        if (gameManager.CodeEditable) {
-            sys.AddCodeBlockAfterSelected(cb);
+        if (!gameManager.GetPlayStatus())
+        {
+            GameObject cb = Instantiate(codeBlock, parentCanvas.transform);
+            if (gameManager.CodeEditable)
+            {
+                sys.AddCodeBlockAfterSelected(cb);
+            }
         }
     }
 }
