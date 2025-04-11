@@ -7,11 +7,13 @@ public class StartPoint : LogicGate
     [SerializeField] GameObject lightVisual = null;
     public void Toggle() //Called by button for Start Points
     {
+        return;
+
         if (canBeToggled)
         {
-            value = !value;
+            gateValue = !gateValue;
             lightVisual.SetActive(!lightVisual.activeSelf);
-            UpdateLogic();
+            CascadeUpdateLogic();
         }
     }
 }
