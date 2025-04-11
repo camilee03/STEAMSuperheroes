@@ -106,6 +106,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5911086623969928135, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
   m_PrefabInstance: {fileID: 4689505617333798721}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1977297984335337211 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6513540457476526522, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
+  m_PrefabInstance: {fileID: 4689505617333798721}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2032337294798607631 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6710407988783256142, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
@@ -148,7 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf2710cda691504ca87eceaa95ac068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gateCodeName: A
+  gateName: 
+  highlight: {fileID: 1977297984335337211}
   gateVisuals:
   - {fileID: 3497742767955942505}
   - {fileID: 2586000622126900122}
@@ -156,9 +162,14 @@ MonoBehaviour:
   - {fileID: 7018114464893866140}
   - {fileID: 9165355708113073702}
   - {fileID: 2032337294798607631}
-  gateState: 0
   canBeChanged: 0
-  value: 1
+  andAllowed: 1
+  orAllowed: 1
+  notAllowed: 1
+  inputGates: []
+  outputGates: []
+  gateState: 0
+  gateValue: 1
   canBeToggled: 1
   lightVisual: {fileID: 1377007970510644358}
 --- !u!1 &9165355708113073702 stripped

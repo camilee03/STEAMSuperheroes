@@ -3,57 +3,53 @@ using UnityEngine;
 
 public class CircuitsDropdown : MonoBehaviour
 {
-    //Dropdowns
-    [SerializeField] GameObject dropdownCanvas = null;
-    [SerializeField] TMP_Dropdown dropdown = null;
+    [Header("Gate Choices")]
+    [SerializeField] GameObject emptyButton = null;
+    [SerializeField] GameObject andButton = null;
+    [SerializeField] GameObject orButton = null;
+    [SerializeField] GameObject notButton = null;
     [Header("DEBUG")]
-    [SerializeField] LogicGate currentGate = null;
-    
-    public void OnDropdownSelect()
-    {
-        int pickedIdx = dropdown.value;
-        string selectedStr = dropdown.options[pickedIdx].ToString();
-        Debug.Log("Dropdown chose: " + selectedStr);
+    [SerializeField] LogicGate selectedGate = null;
 
-        if(currentGate)currentGate.ChangeGate(pickedIdx);
-        CloseDropdownMenu();
-    }
-    public void ToggleDropdown(LogicGate gate)
-    {
-        if (dropdownCanvas.activeSelf)
-        {
-            Debug.Log("toggle - Turn off dropdown");
+    //Called by a LogicGate script
+    public void OpenChoiceMenu(LogicGate gate, bool andCheck, bool orCheck, bool notCheck) {
+        CloseChoiceMenu();
+        
+        if(selectedGate)selectedGate.DeHighlight();
 
-            if (gate != currentGate && gate != null)
-            {
-                currentGate = gate;
-                dropdown.value = 0;
-            } else
-            {
-                //close dropdown
-                CloseDropdownMenu();
+        if (gate != selectedGate) {
+            selectedGate = gate;
+            selectedGate.Highlight();
+
+            emptyButton.SetActive(true);
+            if (andCheck) {
+                andButton.SetActive(true);
             }
-        } else
-        {
-            Debug.Log("toggle - Turn on dropdown");
-
-            //turn it on
-            OpenDropdownMenu();
-            currentGate = gate;
+            if (orCheck) {
+                orButton.SetActive(true);
+            }
+            if (notCheck) {
+                notButton.SetActive(true);
+            }
+        } else {
+            selectedGate = null;
         }
     }
-    void OpenDropdownMenu()
-    {
-        Debug.Log("Turn on dropdown");
-
-        dropdownCanvas.SetActive(true);
-        dropdown.value = 0;
+    void CloseChoiceMenu() {
+        //Deactivate All
+        andButton.SetActive(false);
+        orButton.SetActive(false);
+        notButton.SetActive(false);
+        emptyButton.SetActive(false);
     }
-    void CloseDropdownMenu()
-    {
-        Debug.Log("Turn off dropdown");
-
-        dropdownCanvas.SetActive(false);
-        currentGate = null;
+    //Called by menu button
+    //0 is Empty, 1 is And, 2 is Or, 3 is Not
+    public void ChangeToGate(int choice) { 
+        if (!selectedGate) return;
+        selectedGate.ChangeGate(choice);
+        
+        CloseChoiceMenu();
+        selectedGate.DeHighlight();
+        selectedGate = null;
     }
 }
