@@ -55,13 +55,13 @@ public class LevelManager : MonoBehaviour
     /// <summary> Loads Main Menu </summary>
     public void LoadMainMenu()
     {
-        StartCoroutine(ChangeScene(2));
+        SceneManager.LoadScene(2);
     }
 
     /// <summary> Loads Scene by index number</summary>
     public void LoadScene(int index)
     {
-        if (unlockedLevels[currentLevelIndex]) { StartCoroutine(ChangeScene(index)); }
+        if (unlockedLevels[currentLevelIndex]) { SceneManager.LoadScene(index); }
         else { Debug.Log("The current level is locked"); }
     }
 
@@ -76,16 +76,5 @@ public class LevelManager : MonoBehaviour
     public void UnlockNextLevel()
     {
         unlockedLevels[SceneManager.GetActiveScene().buildIndex + 1] = true;
-    }
-
-    /// <summary> Change Scene coroutine </summary>
-    IEnumerator ChangeScene(int sceneIndex)
-    {
-        AsyncOperation aSync = SceneManager.LoadSceneAsync(sceneIndex);
-
-        while (!aSync.isDone)
-        {
-            yield return null;
-        }
     }
 }
