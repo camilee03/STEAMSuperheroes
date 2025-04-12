@@ -7,11 +7,13 @@ using static System.TimeZoneInfo;
 
 public class LevelManager : MonoBehaviour
 {
-    bool[] unlockedLevels;
 
     [SerializeField] Texture2D[] levelImages;
     [SerializeField] RawImage currentLevel;
-    int currentLevelIndex;
+    int currentLevelIndex = 0;
+
+    [Header("DEBUG")]
+    [SerializeField] bool[] unlockedLevels;
 
     private void Start()
     {
@@ -49,6 +51,10 @@ public class LevelManager : MonoBehaviour
     /// <summary> Starts the game based on the current loaded level </summary>
     public void Play()
     {
+        if (currentLevelIndex < 0) {
+            Debug.Log("No level selected");
+            return;
+        }
         LoadScene(currentLevelIndex);
     }
 
