@@ -6,44 +6,16 @@ public class OutfitData : MonoBehaviour
 {
     int size = 20;
     int initialSize;
-    OutfitManager outfitManager;
-    Color transparentColor;
-    Color opaqueColor;
-    Material mat;
+    [SerializeField] OutfitManager outfitManager;
 
     private void Start()
     {
-        outfitManager = GetComponentInParent<OutfitManager>();
-        mat = GetComponent<Renderer>().material;
-        opaqueColor = mat.color;
-        transparentColor = Color.clear;
         initialSize = (int)transform.localScale.x;
-        size = initialSize;
-    }
-
-    private void Update()
-    {
-        transform.localScale = Vector3.one * size;
-
-        CheckIfEnabled();
-    }
-    private void CheckIfEnabled()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).GetComponent<RawImage>().enabled)
-            {
-                mat.color = opaqueColor;
-                return;
-            }
-        }
-
-        mat.color = transparentColor;
     }
 
     private void OnMouseEnter()
     {
-        size = initialSize + 10;
+        transform.localScale = Vector3.one * (initialSize + 10);
     }
 
     private void OnMouseOver()
@@ -55,6 +27,6 @@ public class OutfitData : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        size = initialSize;
+        transform.localScale = Vector3.one * initialSize;
     }
 }

@@ -23,7 +23,7 @@ public class MineralManager : MonoBehaviour
 
         clickText.text = "Resources used: " + numClicksUsed;
 
-        if (numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) { winLevel.currencyAmountToAdd = 5 - (numClicksUsed - 16)/2; winLevel.ActivateCanvas(); }
+        if (numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) { winLevel.currencyAmountToAdd = totalClicks - (numClicksUsed - 16)/2; winLevel.ActivateCanvas(); }
     }
 
     public void AddMineral(int mineralType)

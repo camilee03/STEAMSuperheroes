@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class OutfitManager : MonoBehaviour
 {
+    // Images of shirts that can exist
     public Texture2D[] shirts;
     public Texture2D[] pants;
     public Texture2D[] face;
@@ -11,25 +12,28 @@ public class OutfitManager : MonoBehaviour
     public Texture2D[] helmet;
     Texture2D[] currentTextures;
 
+    // UI Images that can be switched between
     public RawImage[] shirtImages;
     public RawImage[] pantImages;
     public RawImage[] faceImages;
     public RawImage[] armImages;
     RawImage[] currentImages;
 
+    // Final UI Image
     [SerializeField] RawImage finalShirt;
     [SerializeField] RawImage finalPant;
     [SerializeField] RawImage finalFace;
     [SerializeField] RawImage finalArms;
     [SerializeField] RawImage finalHelmet;
 
+    // What current selection item is
     bool isPants;
     bool isShirts;
     bool isFace;
     bool isArms;
     int helmetNum = 0;
 
-    int skinColor = -1;
+    int skinColor;
 
     // color scheme will be determined by %4 values
 
@@ -46,6 +50,7 @@ public class OutfitManager : MonoBehaviour
         finalFace.texture = face[Globals.Instance.faceNum];
         finalArms.texture = arm[Globals.Instance.armNum];
         finalHelmet.texture = helmet[Globals.Instance.helmetNum];
+        skinColor = Globals.Instance.faceNum;
     }
 
     private void Update()
@@ -90,7 +95,6 @@ public class OutfitManager : MonoBehaviour
     public void SetOutfit(int outfit)
     {
         int outfitNum = (outfit - 1) * colorVar + colorScheme;
-        Debug.Log("OUTFIT: " + outfitNum + " COLOR: " + colorScheme);
 
         if (isPants)
         {
@@ -162,7 +166,7 @@ public class OutfitManager : MonoBehaviour
         {
             currentImages[i].enabled = true;
 
-            currentImages[i].texture = currentTextures[i * colorVar + colorScheme];
+            currentImages[i].texture = currentTextures[i * colorVar + colorScheme]; 
         }
     }
 
@@ -190,10 +194,10 @@ public class OutfitManager : MonoBehaviour
 
             switch (name)
             {
-                case "pants": isPants = true; currentImages = pantImages; currentTextures = pants; colorVar = 4; break;
-                case "shirt": isShirts = true; currentImages = shirtImages; currentTextures = shirts; colorVar = 4; break;
-                case "face": isFace = true; currentImages = faceImages; currentTextures = face; colorVar = 6; break;
-                case "arms": isArms = true; currentImages = armImages; currentTextures = arm; colorVar = 6; break;
+                case "pants": isPants = true; currentImages = pantImages; currentTextures = pants; colorVar = 4; colorScheme = 0; break;
+                case "shirt": isShirts = true; currentImages = shirtImages; currentTextures = shirts; colorVar = 4; colorScheme = 0; break;
+                case "face": isFace = true; currentImages = faceImages; currentTextures = face; colorVar = 6; colorScheme = skinColor; break;
+                case "arms": isArms = true; currentImages = armImages; currentTextures = arm; colorVar = 6; colorScheme = skinColor; break;
             }
         }
         else { SwitchHelmet(); }
