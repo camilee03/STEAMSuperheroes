@@ -4,52 +4,97 @@ using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
-    [SerializeField] Dialogue_SO startingPlayerDialogue;
-    [SerializeField] Dialogue_SO startingNonPlayerDialogue;
-    [SerializeField] Dialogue_SO[] dialogueOrder = null; //both player and game text goes in this.
+    [Header("Setup")]
+    [SerializeField] Dialogue_SO[] dialogueOrder = null;
     int dialogueIndex = 0;
 
     [Header("UI")]
-    [SerializeField] TextMeshProUGUI playerText = null;
-    [SerializeField] TextMeshProUGUI nonPlayerText = null;
-    [SerializeField] Image playerImage = null;
-    [SerializeField] Image nonPlayerImage = null;
+    [SerializeField] GameObject dialogueCanvas = null;
+    [SerializeField] GameObject leftSide = null;
+    [SerializeField] GameObject rightSide = null;
+    [SerializeField] TextMeshProUGUI leftSideText = null;
+    [SerializeField] TextMeshProUGUI rightSideText = null;
+    [SerializeField] Image leftSideImageSource = null;
+    [SerializeField] Image rightSideImageSource = null;
+    [SerializeField] Image extraImageSource = null;
+    [SerializeField] Image leftSideImageUnhighlight = null;
+    [SerializeField] Image rightSideImageUnhighlight = null;
+    [SerializeField] Image leftSideTextUnhighlight = null;
+    [SerializeField] Image rightSideTextUnhighlight = null;
 
+    [Header("DEBUG")]
+    [SerializeField] Sprite defaultPlayerImage;
+
+    //Setup the Dialogue Canvas
     private void Start() {
-        playerText.text = startingPlayerDialogue.text;
-        nonPlayerText.text = startingNonPlayerDialogue.text;
+        leftSideText.text = null;
+        rightSideText.text = null;
+        leftSide.SetActive(false);
+        rightSide.SetActive(false);
+        LoadDialoguePart();
     }
+    //Check if user left clicks to move to next dialogue sequence
     private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            NextText();
+        if (dialogueCanvas.activeSelf) {
+            if (Input.GetMouseButtonDown(0)) {
+                LoadDialoguePart();
+            }
         }
     }
-    public void NextText() {
+    //Loads the text of the current dialogueIndex
+    void LoadDialoguePart() {
         if(dialogueIndex > dialogueOrder.Length - 1) { //out of dialogue options
             CloseDialogue();
+            return;
         }
 
-        Dialogue_SO  dialogue = dialogueOrder[dialogueIndex];
-        if (dialogue.type) { //player text
-            playerText.text = dialogue.text;
-            HighlightImage(playerImage);
-        } else { //non player text
-            nonPlayerText.text = dialogue.text;
-            HighlightImage(nonPlayerImage);
+        Dialogue_SO currentDialogue = dialogueOrder[dialogueIndex];
+        if (currentDialogue.OnLeftSide) { //left side dialogue
+            LoadSide(currentDialogue, leftSide, leftSideImageSource, leftSideImageUnhighlight, leftSideText);
+
+            //toggle gray highlight
+            leftSideImageUnhighlight.enabled = false;
+            rightSideImageUnhighlight.enabled = true;
+            leftSideTextUnhighlight.enabled = false;
+            rightSideTextUnhighlight.enabled = true;
+        } else { //right side dialogue
+            LoadSide(currentDialogue, rightSide, rightSideImageSource, rightSideImageUnhighlight, rightSideText);
+
+            //toggle gray highlight
+            leftSideImageUnhighlight.enabled = true;
+            rightSideImageUnhighlight.enabled = false;
+            leftSideTextUnhighlight.enabled = true;
+            rightSideTextUnhighlight.enabled = false;
         }
+
         dialogueIndex++;
     }
+    //Load dialogue and image into the given side
+    void LoadSide(Dialogue_SO dialogueSO, GameObject side, Image sideImageSource, Image sideImageHighlight, TextMeshProUGUI sideText) {
+        if (!side.activeSelf) side.SetActive(true);
 
-    void HighlightImage(Image image) {
-        DeHighlightImage(playerImage);
-        DeHighlightImage(nonPlayerImage);
+        if (dialogueSO.UsesPlayerImage) {
+            /*
+             * TEMP - CHANGE THIS LATER TO USE THE PLAYER'S CUSTOMIZED CHARACTER
+             */
+            sideImageSource.sprite = defaultPlayerImage;
+            sideImageHighlight.sprite = defaultPlayerImage;
+        } else {
+            sideImageSource.sprite = dialogueSO.SpeakerImage;
+            sideImageHighlight.sprite = dialogueSO.SpeakerImage;
+        }
 
-        //hihglight image here
+        sideText.text = dialogueSO.DialogueText;
+
+        if (dialogueSO.ExtraImage) {
+            extraImageSource.gameObject.SetActive(true);
+            extraImageSource.sprite = dialogueSO.ExtraImage;
+        } else {
+            extraImageSource.gameObject.SetActive(false);
+        }
     }
-    void DeHighlightImage(Image image) {
-        //dehighlight image here
-    }
+    //Turn off dialogue canvas
     void CloseDialogue() {
-        gameObject.SetActive(false);
+        dialogueCanvas.SetActive(false);
     }
 }
