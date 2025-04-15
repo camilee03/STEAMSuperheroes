@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d7e9723fa8592499d9a77f1d33eada, type: 3}
+  m_Name: D2.1-4
+  m_EditorClassIdentifier: 
+  onLeftSide: 0
+  usesPlayerImage: 0
+  speakerImage: {fileID: 1768157223, guid: 07c200f0d200f5a42a1530f8cdfd1d62, type: 3}
+  extraImage: {fileID: -1329433762, guid: 3464d4c3f975ea54fb8ca08b43573dcc, type: 3}
+  dialogueText: Would you mind helping me navigate drones through Zombie Space Junk
+    to collect satellite parts?

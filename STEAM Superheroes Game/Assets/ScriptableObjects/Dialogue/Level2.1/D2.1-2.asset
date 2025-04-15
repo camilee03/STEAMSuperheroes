@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d7e9723fa8592499d9a77f1d33eada, type: 3}
+  m_Name: D2.1-2
+  m_EditorClassIdentifier: 
+  onLeftSide: 1
+  usesPlayerImage: 1
+  speakerImage: {fileID: 0}
+  extraImage: {fileID: 0}
+  dialogueText: Nice to meet you!
