@@ -45,7 +45,7 @@ public class LogicGate : MonoBehaviour
     //Called by clicking on itself (as a button)
     public void ToggleDropdown() 
     {
-        circuitsDropdown.OpenChoiceMenu(this, andAllowed, orAllowed, notAllowed);
+        if(canBeChanged) circuitsDropdown.OpenChoiceMenu(this, andAllowed, orAllowed, notAllowed);
     }
     //Called by CircuitsManager
     public void Highlight() {
