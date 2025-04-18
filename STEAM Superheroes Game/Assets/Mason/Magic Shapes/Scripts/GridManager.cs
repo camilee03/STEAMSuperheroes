@@ -6,6 +6,7 @@ public class GridManager : MonoBehaviour
 {
     public DropArea[] importantDropAreas;
     [SerializeField] WinLevel winLevel;
+    bool levelWon = false;
 
     void Update()
     {
@@ -31,7 +32,10 @@ public class GridManager : MonoBehaviour
 
         if (allShapesDropped && count == importantDropAreas.Length)
         {
-            winLevel.ActivateCanvas();
+            if (!levelWon) {
+                levelWon = true;
+                winLevel.ActivateCanvas();
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ public class LogicGate : MonoBehaviour
     [SerializeField] LogicGate[] outputGates;
     [Header("DEBUG")]
     [SerializeField] protected LOGIC_STATE gateState = LOGIC_STATE.EMPTY;
-    [SerializeField] protected bool gateValue = false;
+    [SerializeField] protected bool gateValue = false; //instead int wehre 0 = false, 1 = true, 2 = null value (empty gate)
 
 
     private void Start()
