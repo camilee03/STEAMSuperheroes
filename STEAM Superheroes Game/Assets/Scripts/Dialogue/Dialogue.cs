@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
+    //Handles dialogue between characters
+
     [Header("Setup")]
     [SerializeField] Dialogue_SO[] dialogueOrder = null;
     int dialogueIndex = 0;
