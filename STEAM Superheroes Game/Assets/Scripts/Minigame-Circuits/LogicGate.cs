@@ -32,7 +32,7 @@ public class LogicGate : MonoBehaviour
     [SerializeField] LogicGate[] outputGates;
     [Header("DEBUG")]
     [SerializeField] protected LOGIC_STATE gateState = LOGIC_STATE.EMPTY;
-    [SerializeField] protected bool gateValue = false;
+    [SerializeField] protected bool gateValue = false; //instead int wehre 0 = false, 1 = true, 2 = null value (empty gate)
 
 
     private void Start()
@@ -45,7 +45,7 @@ public class LogicGate : MonoBehaviour
     //Called by clicking on itself (as a button)
     public void ToggleDropdown() 
     {
-        circuitsDropdown.OpenChoiceMenu(this, andAllowed, orAllowed, notAllowed);
+        if(canBeChanged) circuitsDropdown.OpenChoiceMenu(this, andAllowed, orAllowed, notAllowed);
     }
     //Called by CircuitsManager
     public void Highlight() {

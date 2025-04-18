@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86c29014ac29e344b913cc7f4bebac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  correctPlacement: 1
+  correctPlacement: 0
   correctShapes: []
   occupied: 0
   currentShape: {fileID: 0}
