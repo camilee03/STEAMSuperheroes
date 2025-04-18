@@ -13,11 +13,11 @@ public class StartPoint : LogicGate
     {
         return;
 
-        if (canBeToggled)
-        {
-            gateValue = !gateValue;
-            lightVisual.SetActive(!lightVisual.activeSelf);
-            CascadeUpdateLogic();
-        }
+        //if (canBeToggled)
+        //{
+        //    gateValue = !gateValue;
+        //    lightVisual.SetActive(!lightVisual.activeSelf);
+        //    CascadeUpdateLogic();
+        //}
     }
 }

@@ -34,7 +34,7 @@ public class LogicGate : MonoBehaviour
     [SerializeField] LogicGate[] outputGates;
     [Header("DEBUG")]
     [SerializeField] protected LOGIC_STATE gateState = LOGIC_STATE.EMPTY;
-    [SerializeField] protected bool gateValue = false; //instead int wehre 0 = false, 1 = true, 2 = null value (empty gate)
+    [SerializeField] protected int gateValue = 2; //instead int wehre 0 = false, 1 = true, 2 = null value (empty gate)
 
     //Init
     private void Start()
@@ -120,7 +120,7 @@ public class LogicGate : MonoBehaviour
     //Called by self or other gate
     public void UpdateLogic() 
     {
-        bool newValue = false;
+        int newValue = 2;
         switch (gateState)
         {
             case LOGIC_STATE.START: 
@@ -156,16 +156,16 @@ public class LogicGate : MonoBehaviour
     }
     #region GateLogic
     //Start Logic Gate
-    bool Logic_START()
+    int Logic_START()
     {
         return gateValue;
     }
     //Unofficial rule - This gate can only take 1 input
     //End Logic Gate
-    bool Logic_END() 
+    int Logic_END() 
     {
-        bool inputValue = inputGates[0].GetGateValue();
-        if (inputValue)
+        int inputValue = inputGates[0].GetGateValue();
+        if (inputValue == 1)
         {
             if (!endGateCheck) {
                 Debug.Log("adding success");
@@ -185,46 +185,52 @@ public class LogicGate : MonoBehaviour
         return inputValue;
     }
     //Empty Logic Gate
-    bool Logic_EMPTY()
+    int Logic_EMPTY()
     {
-        return false;
+        return 2;
     }
     //And Logic Gate
-    bool Logic_AND()
+    int Logic_AND()
     {
-        bool temporaryState = true;
+        int temporaryState = 1;
         for (int i = 0; i < inputGates.Length; i++)
         {
-            if (!inputGates[i].GetGateValue())
+            if (inputGates[i].GetGateValue() == 0)
             {
-                temporaryState = false;
+                temporaryState = 0;
                 break;
             }
         }
         return temporaryState;
     }
     //Or Logic Gate
-    bool Logic_OR()
+    int Logic_OR()
     {
-        bool temporaryState = false;
+        int temporaryState = 0;
         for (int i = 0; i < inputGates.Length; i++)
         {
-            if (inputGates[i].GetGateValue())
+            if (inputGates[i].GetGateValue() == 1)
             {
-                temporaryState = true;
+                temporaryState = 1;
                 break;
             }
         }
         return temporaryState;
     }
     //Not Logic Gate
-    bool Logic_NOT()//can only take 1 input
+    int Logic_NOT()//can only take 1 input
     {
-        return !inputGates[0].GetGateValue();
+        if(inputGates[0].GetGateValue() == 0) {
+            return 1;
+        }else if (inputGates[0].GetGateValue() == 1) {
+            return 0;
+        } else {
+            return 2;
+        }
     }
     #endregion
     //Getter for gate value
-    public bool GetGateValue()
+    public int GetGateValue()
     {
         return gateValue;
     }
