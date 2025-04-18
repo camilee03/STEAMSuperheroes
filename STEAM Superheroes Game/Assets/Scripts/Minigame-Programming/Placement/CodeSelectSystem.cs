@@ -34,7 +34,7 @@ public class CodeSelectSystem : MonoBehaviour
             DeselectBlockUnhighlight();
             SelectBlockHighlight(obj);
         }
-        if (obj == selectedObject)
+        else if (obj == selectedObject)
         {
             DeselectBlockUnhighlight();
         } else
@@ -45,6 +45,7 @@ public class CodeSelectSystem : MonoBehaviour
     //Highlight selected block
     void SelectBlockHighlight(GameObject obj)
     {
+        if(obj) Debug.Log("Highlight new block: " + obj.name);
         selectedObject = obj;
         savedColor = obj.GetComponent<Image>().color;
         obj.GetComponent<Image>().color = Color.yellow;
@@ -52,6 +53,8 @@ public class CodeSelectSystem : MonoBehaviour
     //Unlighlight previously selected block
     public void DeselectBlockUnhighlight()
     {
+        if(selectedObject) Debug.Log("Unhiglight block: " + selectedObject.name);
+
         if (selectedObject) {
             selectedObject.GetComponent<Image>().color = savedColor;
             selectedObject = null;
@@ -74,6 +77,7 @@ public class CodeSelectSystem : MonoBehaviour
         SelectBlockHighlight(newBlock);
 
         newBlock.transform.SetParent(blockParentTransform.transform);
+        newBlock.transform.SetSiblingIndex(originIdx + 1);
     }
     //Remove selected block
     public void RemoveSelectedBlock() //Called By Button

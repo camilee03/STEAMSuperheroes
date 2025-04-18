@@ -3294,6 +3294,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterDialogue
       objectReference: {fileID: 0}
+    - target: {fileID: 5021322995422158344, guid: 03417d788c93b5e4ba686744c47820fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8139057991652404502, guid: 03417d788c93b5e4ba686744c47820fd, type: 3}
       propertyPath: dialogueOrder.Array.size
       value: 6
@@ -5153,7 +5157,6 @@ SceneRoots:
   - {fileID: 5872670569823806370}
   - {fileID: 4580163225637572972}
   - {fileID: 1452508073}
-  - {fileID: 513442573126300329}
   - {fileID: 2010746086}
   - {fileID: 5635365572251929943}
   - {fileID: 907661}
@@ -5162,3 +5165,4 @@ SceneRoots:
   - {fileID: 1732641199}
   - {fileID: 1620987509}
   - {fileID: 1452610742}
+  - {fileID: 513442573126300329}
