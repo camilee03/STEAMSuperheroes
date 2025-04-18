@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LogicGate : MonoBehaviour
 {
+    //Logic gate logic, has all possible logic conditions and can change within the same object
+
     public enum LOGIC_STATE
     {
         START,
@@ -34,13 +36,13 @@ public class LogicGate : MonoBehaviour
     [SerializeField] protected LOGIC_STATE gateState = LOGIC_STATE.EMPTY;
     [SerializeField] protected bool gateValue = false; //instead int wehre 0 = false, 1 = true, 2 = null value (empty gate)
 
-
+    //Init
     private void Start()
     {
         circuitsDropdown = FindFirstObjectByType<CircuitsDropdown>();
         circuitManager = FindFirstObjectByType<CircuitsManager>();
         highlight.SetActive(false);
-        if (gateState == LOGIC_STATE.START) gateValue = true;
+        //if (gateState == LOGIC_STATE.START) gateValue = true;
     }
     //Called by clicking on itself (as a button)
     public void ToggleDropdown() 
@@ -82,6 +84,7 @@ public class LogicGate : MonoBehaviour
         UpdateVisual();
         UpdateLogic();
     }
+    //Change the visual of a logic gate when changed
     void UpdateVisual()
     {
         DisableAllVisuals();
@@ -108,6 +111,7 @@ public class LogicGate : MonoBehaviour
         }
 
     }
+    //Turn off all gate visuals
     void DisableAllVisuals() {
         for (int i = 0; i < gateVisuals.Length; i++) {
             gateVisuals[i].SetActive(false);
@@ -151,11 +155,13 @@ public class LogicGate : MonoBehaviour
         }
     }
     #region GateLogic
+    //Start Logic Gate
     bool Logic_START()
     {
         return gateValue;
     }
     //Unofficial rule - This gate can only take 1 input
+    //End Logic Gate
     bool Logic_END() 
     {
         bool inputValue = inputGates[0].GetGateValue();
@@ -178,10 +184,12 @@ public class LogicGate : MonoBehaviour
         }
         return inputValue;
     }
+    //Empty Logic Gate
     bool Logic_EMPTY()
     {
         return false;
     }
+    //And Logic Gate
     bool Logic_AND()
     {
         bool temporaryState = true;
@@ -195,6 +203,7 @@ public class LogicGate : MonoBehaviour
         }
         return temporaryState;
     }
+    //Or Logic Gate
     bool Logic_OR()
     {
         bool temporaryState = false;
@@ -208,12 +217,13 @@ public class LogicGate : MonoBehaviour
         }
         return temporaryState;
     }
+    //Not Logic Gate
     bool Logic_NOT()//can only take 1 input
     {
         return !inputGates[0].GetGateValue();
     }
     #endregion
-    
+    //Getter for gate value
     public bool GetGateValue()
     {
         return gateValue;

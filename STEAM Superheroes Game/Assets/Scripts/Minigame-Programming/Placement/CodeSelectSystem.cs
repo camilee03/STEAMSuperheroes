@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class CodeSelectSystem : MonoBehaviour
 {
+    //Selection system for code blocks
+
     ProgrammingMinigameManager gameManager = null;
     [SerializeField] GameObject blockCreationOrigin;
     [SerializeField] float addSpaceMargin = 10;
@@ -40,12 +42,14 @@ public class CodeSelectSystem : MonoBehaviour
             SelectBlockHighlight(obj);
         }
     }
+    //Highlight selected block
     void SelectBlockHighlight(GameObject obj)
     {
         selectedObject = obj;
         savedColor = obj.GetComponent<Image>().color;
         obj.GetComponent<Image>().color = Color.yellow;
     }
+    //Unlighlight previously selected block
     public void DeselectBlockUnhighlight()
     {
         if (selectedObject) {
@@ -53,6 +57,7 @@ public class CodeSelectSystem : MonoBehaviour
             selectedObject = null;
         }
     }
+    //Add a new code block
     public void AddCodeBlockAfterSelected(GameObject newBlock)
     {
         if (!gameManager.CodeEditable) return;
@@ -70,6 +75,7 @@ public class CodeSelectSystem : MonoBehaviour
 
         newBlock.transform.SetParent(blockParentTransform.transform);
     }
+    //Remove selected block
     public void RemoveSelectedBlock() //Called By Button
     {
         if (!gameManager.CodeEditable) return;
@@ -83,6 +89,7 @@ public class CodeSelectSystem : MonoBehaviour
             selectedObject = null;
         }
     }
+    //Remove all blocks from the list
     public void RemoveAllBlocks() //Called By Button
     {
         Debug.Log("Attempting to clear blocks");
@@ -95,6 +102,7 @@ public class CodeSelectSystem : MonoBehaviour
         codeBlocks.Add(start);
         selectedObject = null;
     }
+    //Getter for code block list
     public List<GameObject> GetCodeBlocksList()
     {
         return codeBlocks;

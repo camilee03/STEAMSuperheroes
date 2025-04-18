@@ -1265,6 +1265,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
+      propertyPath: orAllowed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
       propertyPath: inputGates.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1765,6 +1769,10 @@ PrefabInstance:
       value: Start B
       objectReference: {fileID: 0}
     - target: {fileID: 1853208580496044423, guid: 0dad8232b525d91499c1fe88130a9b2b, type: 3}
+      propertyPath: gateValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1853208580496044423, guid: 0dad8232b525d91499c1fe88130a9b2b, type: 3}
       propertyPath: inputGates.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1780,6 +1788,18 @@ PrefabInstance:
       propertyPath: 'outputGates.Array.data[0]'
       value: 
       objectReference: {fileID: 1400591303}
+    - target: {fileID: 2713483037336667835, guid: 0dad8232b525d91499c1fe88130a9b2b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713483037336667835, guid: 0dad8232b525d91499c1fe88130a9b2b, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713483037336667835, guid: 0dad8232b525d91499c1fe88130a9b2b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3668405748513358453, guid: 0dad8232b525d91499c1fe88130a9b2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.94
@@ -2230,6 +2250,10 @@ PrefabInstance:
     - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
       propertyPath: gateValue
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
+      propertyPath: andAllowed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
       propertyPath: notAllowed
@@ -3101,8 +3125,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
-      propertyPath: notAllowed
+      propertyPath: orAllowed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
+      propertyPath: notAllowed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
       propertyPath: inputGates.Array.size
