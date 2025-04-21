@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class CodeSelectSystem : MonoBehaviour
 {
+    //Selection system for code blocks
+
     ProgrammingMinigameManager gameManager = null;
     [SerializeField] GameObject blockCreationOrigin;
     [SerializeField] float addSpaceMargin = 10;
@@ -32,7 +34,7 @@ public class CodeSelectSystem : MonoBehaviour
             DeselectBlockUnhighlight();
             SelectBlockHighlight(obj);
         }
-        if (obj == selectedObject)
+        else if (obj == selectedObject)
         {
             DeselectBlockUnhighlight();
         } else
@@ -40,19 +42,25 @@ public class CodeSelectSystem : MonoBehaviour
             SelectBlockHighlight(obj);
         }
     }
+    //Highlight selected block
     void SelectBlockHighlight(GameObject obj)
     {
+        if(obj) Debug.Log("Highlight new block: " + obj.name);
         selectedObject = obj;
         savedColor = obj.GetComponent<Image>().color;
         obj.GetComponent<Image>().color = Color.yellow;
     }
+    //Unlighlight previously selected block
     public void DeselectBlockUnhighlight()
     {
+        if(selectedObject) Debug.Log("Unhiglight block: " + selectedObject.name);
+
         if (selectedObject) {
             selectedObject.GetComponent<Image>().color = savedColor;
             selectedObject = null;
         }
     }
+    //Add a new code block
     public void AddCodeBlockAfterSelected(GameObject newBlock)
     {
         if (!gameManager.CodeEditable) return;
@@ -69,7 +77,9 @@ public class CodeSelectSystem : MonoBehaviour
         SelectBlockHighlight(newBlock);
 
         newBlock.transform.SetParent(blockParentTransform.transform);
+        newBlock.transform.SetSiblingIndex(originIdx + 1);
     }
+    //Remove selected block
     public void RemoveSelectedBlock() //Called By Button
     {
         if (!gameManager.CodeEditable) return;
@@ -83,6 +93,7 @@ public class CodeSelectSystem : MonoBehaviour
             selectedObject = null;
         }
     }
+    //Remove all blocks from the list
     public void RemoveAllBlocks() //Called By Button
     {
         Debug.Log("Attempting to clear blocks");
@@ -95,6 +106,7 @@ public class CodeSelectSystem : MonoBehaviour
         codeBlocks.Add(start);
         selectedObject = null;
     }
+    //Getter for code block list
     public List<GameObject> GetCodeBlocksList()
     {
         return codeBlocks;

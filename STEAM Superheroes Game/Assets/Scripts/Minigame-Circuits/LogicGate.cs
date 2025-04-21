@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LogicGate : MonoBehaviour
 {
+    //Logic gate logic, has all possible logic conditions and can change within the same object
+
     public enum LOGIC_STATE
     {
         START,
@@ -32,15 +34,15 @@ public class LogicGate : MonoBehaviour
     [SerializeField] LogicGate[] outputGates;
     [Header("DEBUG")]
     [SerializeField] protected LOGIC_STATE gateState = LOGIC_STATE.EMPTY;
-    [SerializeField] protected bool gateValue = false; //instead int wehre 0 = false, 1 = true, 2 = null value (empty gate)
+    [SerializeField] protected int gateValue = 2; //instead int wehre 0 = false, 1 = true, 2 = null value (empty gate)
 
-
+    //Init
     private void Start()
     {
         circuitsDropdown = FindFirstObjectByType<CircuitsDropdown>();
         circuitManager = FindFirstObjectByType<CircuitsManager>();
         highlight.SetActive(false);
-        if (gateState == LOGIC_STATE.START) gateValue = true;
+        //if (gateState == LOGIC_STATE.START) gateValue = true;
     }
     //Called by clicking on itself (as a button)
     public void ToggleDropdown() 
@@ -82,6 +84,7 @@ public class LogicGate : MonoBehaviour
         UpdateVisual();
         UpdateLogic();
     }
+    //Change the visual of a logic gate when changed
     void UpdateVisual()
     {
         DisableAllVisuals();
@@ -108,6 +111,7 @@ public class LogicGate : MonoBehaviour
         }
 
     }
+    //Turn off all gate visuals
     void DisableAllVisuals() {
         for (int i = 0; i < gateVisuals.Length; i++) {
             gateVisuals[i].SetActive(false);
@@ -116,7 +120,7 @@ public class LogicGate : MonoBehaviour
     //Called by self or other gate
     public void UpdateLogic() 
     {
-        bool newValue = false;
+        int newValue = 2;
         switch (gateState)
         {
             case LOGIC_STATE.START: 
@@ -151,15 +155,17 @@ public class LogicGate : MonoBehaviour
         }
     }
     #region GateLogic
-    bool Logic_START()
+    //Start Logic Gate
+    int Logic_START()
     {
         return gateValue;
     }
     //Unofficial rule - This gate can only take 1 input
-    bool Logic_END() 
+    //End Logic Gate
+    int Logic_END() 
     {
-        bool inputValue = inputGates[0].GetGateValue();
-        if (inputValue)
+        int inputValue = inputGates[0].GetGateValue();
+        if (inputValue == 1)
         {
             if (!endGateCheck) {
                 Debug.Log("adding success");
@@ -178,43 +184,53 @@ public class LogicGate : MonoBehaviour
         }
         return inputValue;
     }
-    bool Logic_EMPTY()
+    //Empty Logic Gate
+    int Logic_EMPTY()
     {
-        return false;
+        return 2;
     }
-    bool Logic_AND()
+    //And Logic Gate
+    int Logic_AND()
     {
-        bool temporaryState = true;
+        int temporaryState = 1;
         for (int i = 0; i < inputGates.Length; i++)
         {
-            if (!inputGates[i].GetGateValue())
+            if (inputGates[i].GetGateValue() == 0)
             {
-                temporaryState = false;
+                temporaryState = 0;
                 break;
             }
         }
         return temporaryState;
     }
-    bool Logic_OR()
+    //Or Logic Gate
+    int Logic_OR()
     {
-        bool temporaryState = false;
+        int temporaryState = 0;
         for (int i = 0; i < inputGates.Length; i++)
         {
-            if (inputGates[i].GetGateValue())
+            if (inputGates[i].GetGateValue() == 1)
             {
-                temporaryState = true;
+                temporaryState = 1;
                 break;
             }
         }
         return temporaryState;
     }
-    bool Logic_NOT()//can only take 1 input
+    //Not Logic Gate
+    int Logic_NOT()//can only take 1 input
     {
-        return !inputGates[0].GetGateValue();
+        if(inputGates[0].GetGateValue() == 0) {
+            return 1;
+        }else if (inputGates[0].GetGateValue() == 1) {
+            return 0;
+        } else {
+            return 2;
+        }
     }
     #endregion
-    
-    public bool GetGateValue()
+    //Getter for gate value
+    public int GetGateValue()
     {
         return gateValue;
     }

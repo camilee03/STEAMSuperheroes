@@ -14,6 +14,8 @@ using TMPro;
 
 public class ProgrammingMinigameManager : MonoBehaviour
 {
+    //Handles the execution of drone movement according to code blocks in list
+
     public enum CODE_COMMAND
     {
         START,
@@ -63,12 +65,13 @@ public class ProgrammingMinigameManager : MonoBehaviour
     [SerializeField] bool gameEnded = false;
 
 
-
+    //Setup
     private void Start()
     {
         selectSystem = FindFirstObjectByType<CodeSelectSystem>();
         ResetGame();
     }
+    //Start the drone's run
     public void StartRun() //Called By Button
     {
         CodeEditable = false;
@@ -81,11 +84,13 @@ public class ProgrammingMinigameManager : MonoBehaviour
         selectSystem.DeselectBlockUnhighlight();
         StartExecutingCode();
     }
+    //Start the process of going through the code blocks
     void StartExecutingCode()
     {
         StartCoroutine(ExecuteCode()); //THIS MIGHT CAUSE MEMORY LEAKS W/ INFINITE LOOPING?
         //LoopExecutingCode();
     }
+    //Defunct for now
     void LoopExecutingCode()
     {
         if (stopRun)
@@ -97,7 +102,8 @@ public class ProgrammingMinigameManager : MonoBehaviour
             StartExecutingCode();
         }
     }
-    public void StopRun(bool reset)
+    //Stop the drone's run
+    public void StopRun(bool reset) //called by button
     {
         CodeEditable = true;
         //codeBlocker.SetActive(false);
@@ -109,6 +115,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
         EnableDisableCodeButtons(true);
         stopButton.SetActive(false);
     }
+    //run through each code block in the list
     public IEnumerator ExecuteCode() 
     {
         List<GameObject> codeBlocksList = selectSystem.GetCodeBlocksList();
@@ -134,6 +141,7 @@ public class ProgrammingMinigameManager : MonoBehaviour
             droneRB.linearVelocity = Vector2.zero;
         }
     }
+    //Parse code commands
     void ParseCommand(CODE_COMMAND codeType)
     {
 
@@ -170,46 +178,54 @@ public class ProgrammingMinigameManager : MonoBehaviour
                 break;
         }
     }
+    //Start command - do nothing
     void Command_START()
     {
         Debug.Log("Start");
         executeWaitSeconds = .1f; //Change this later
     }
+    //Move up command
     void Command_MOVEUP()
     {
         Debug.Log("Move");
         executeWaitSeconds = 1; //Change this later
         droneRB.linearVelocity = Vector2.up * droneSpeed;
     }
+    //Move left command
     void Command_MOVELEFT()
     {
         Debug.Log("Turn Left");
         executeWaitSeconds = 1; //Change this later
         droneRB.linearVelocity = -Vector2.right * droneSpeed;
     }
+    //Move right command
     void Command_MOVERIGHT()
     {
         Debug.Log("Turn Right");
         executeWaitSeconds = 1; //Change this later
         droneRB.linearVelocity = Vector2.right * droneSpeed;
     }
+    //Move down command
     void Command_MOVEDOWN() {
         Debug.Log("Turn Right");
         executeWaitSeconds = 1; //Change this later
         droneRB.linearVelocity = -Vector2.up * droneSpeed;
     }
+    //If command, not currently used
     void Command_IF()
     {
         Debug.Log("If");
         //executeWaitSeconds = 1; //Change this later
 
     }
+    //If command, not currently used
     void Command_ELSE()
     {
         Debug.Log("Else");
         //executeWaitSeconds = 1; //Change this later
 
     }
+    //Reset the game from the start, keeps code blocks
     private void ResetGame()
     {
         Destroy(drone);
@@ -234,17 +250,20 @@ public class ProgrammingMinigameManager : MonoBehaviour
         }
         piecesCollected = 0;
     }
+    //Trigger Win Condition
     void WinGame()
     {
         gameEnded = true;
         StopRun(false);
         winLevel.ActivateCanvas();
     }
+    //Getter and setter if code blocks list is editable
     public bool CodeEditable
     {
         get { return codeEditable; }
         set { codeEditable = value; }
     }
+    //When satellite part is collected, increase variable
     public void IncreasePiecesCollected(GameObject satellitePickup)
     {
         if (satelliteParts.Contains(satellitePickup))
@@ -258,10 +277,12 @@ public class ProgrammingMinigameManager : MonoBehaviour
             }
         }
     }
+    //Getter for play status
     public bool GetPlayStatus()
     {
         return playInProgress;
     }
+    //Toggle for code button clickability
     void EnableDisableCodeButtons(bool check) //true for turn on, false for turn off
     {
         for(int i = 0; i < codeButtons.Length; i++)

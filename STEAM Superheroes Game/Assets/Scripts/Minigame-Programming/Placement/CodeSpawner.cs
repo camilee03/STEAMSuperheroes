@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CodeSpawner : MonoBehaviour
 {
+    //Creates code blocks
+
     //System
     ProgrammingMinigameManager gameManager = null;
     CodeSelectSystem sys = null;
@@ -16,6 +18,7 @@ public class CodeSpawner : MonoBehaviour
         gameManager = FindFirstObjectByType<ProgrammingMinigameManager>();
         sys = FindFirstObjectByType<CodeSelectSystem>();
     }
+    //Spawn a new code block
     public void Spawn() //Called By Button
     {
         if (!gameManager.GetPlayStatus())

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CircuitsDropdown : MonoBehaviour
 {
+    //Choice bar for replacing logic gates
+
     [Header("Gate Choices")]
     [SerializeField] GameObject emptyButton = null;
     [SerializeField] GameObject andButton = null;
@@ -35,6 +37,7 @@ public class CircuitsDropdown : MonoBehaviour
             selectedGate = null;
         }
     }
+    //Remove all choices from the menu
     void CloseChoiceMenu() {
         //Deactivate All
         andButton.SetActive(false);
