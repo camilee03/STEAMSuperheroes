@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class WinLevel : MonoBehaviour
 {
@@ -28,16 +29,32 @@ public class WinLevel : MonoBehaviour
     public void CompleteLevel() {
         //Check if the level is not already completed in Globals.Instance
         if (!Globals.Instance.levelsCompleted.Contains(levelCode)) {
-            //Show Text - TODO - update to visual intstead of text
-            currencyText.text = "Gained " + currencyAmountToAdd + " Currency!";
+            // Check if the level is a final level
+            if (levelCode.ToString().StartsWith('6'))
+            {
+                currencyText.text = "Completed!";
+                Globals.Instance.levelsCompleted.Add(levelCode);
 
-            //Add to score
-            Globals.Instance.score += currencyAmountToAdd;
-            Debug.Log("Increased score by: " + currencyAmountToAdd);
+                // Load next level automatically
+                if (SceneManager.sceneCount < SceneManager.GetActiveScene().buildIndex + 1) 
+                { 
+                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1); 
+                }
+                
+            }
+            else
+            {
+                //Show Text - TODO - update to visual intstead of text
+                currencyText.text = "Gained " + currencyAmountToAdd + " Currency!";
 
-            //Add completed level
-            Globals.Instance.levelsCompleted.Add(levelCode);
-            Debug.Log("Added " + levelCode + " to completed levels");
+                //Add to score
+                Globals.Instance.score += currencyAmountToAdd;
+                Debug.Log("Increased score by: " + currencyAmountToAdd);
+
+                //Add completed level
+                Globals.Instance.levelsCompleted.Add(levelCode);
+                Debug.Log("Added " + levelCode + " to completed levels");
+            }
         }
     }
     //Load Main Menu

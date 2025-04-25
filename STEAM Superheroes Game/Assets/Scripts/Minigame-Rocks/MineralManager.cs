@@ -10,20 +10,31 @@ public class MineralManager : MonoBehaviour
     [SerializeField] TMP_Text infoText;
     [SerializeField] TMP_Text clickText;
     [SerializeField] WinLevel winLevel;
+    public bool isFinalLevel;
 
 
     private void Update()
     {
-        infoText.text = "Ilmenite: " + numIlmenite
-            + "\nHelium: " + numHelium;
+        if (isFinalLevel) 
+        {
+            infoText.text = "Triangle: " + numIlmenite
+                + "\nHalf Circle: " + numHelium
+                + "\nOther: " + numMareBasalt;
+        }
+        else
+        {
+            infoText.text = "Ilmenite: " + numIlmenite
+                + "\nHelium: " + numHelium;
 
-        //+"\nAnorthosite: " + numAnorthosite
-        //+ "\nMare Basalt: " + numMareBasalt
-        //+ "\nParadot: " + numParadot
+            //+"\nAnorthosite: " + numAnorthosite
+            //+ "\nMare Basalt: " + numMareBasalt
+            //+ "\nParadot: " + numParadot
+
+            if (numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) 
+            { winLevel.currencyAmountToAdd = totalClicks - (numClicksUsed - 16) / 2; winLevel.ActivateCanvas(); }
+        }
 
         clickText.text = "Resources used: " + numClicksUsed;
-
-        if (numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) { winLevel.currencyAmountToAdd = totalClicks - (numClicksUsed - 16)/2; winLevel.ActivateCanvas(); }
     }
 
     public void AddMineral(int mineralType)
