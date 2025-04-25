@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
+    //This class handles all functions and methods for the pause menu
+
     [SerializeField] GameObject pauseMenuCanvas = null;
     [SerializeField] int[] doNotOpenSceneIdx = null;
     bool pauseMenuOpen = false;
     public static PauseMenu PauseMenuInstance { get; private set; }
+
+    //Create the singleton
     private void Awake()
     {
         //Singleton
@@ -21,6 +25,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuCanvas.SetActive(false);
     }
 
+    //Detect Key Input to Open/Close pause menu
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -34,6 +39,7 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
+    //Make pause menu visible
     public void OpenPauseMenu()
     {
         int sceneIdx = FindFirstObjectByType<SceneLoader>().GetActiveSceneIdx();
@@ -48,11 +54,13 @@ public class PauseMenu : MonoBehaviour
         pauseMenuCanvas.SetActive(true);
         pauseMenuOpen = true;
     }
+    //Make pause menu invisible
     public void ClosePauseMenu()
     {
         pauseMenuCanvas.SetActive(false);
         pauseMenuOpen = false;
     }
+    //Load main menu scene
     public void ToMainMenu()
     {
         ClosePauseMenu();

@@ -19,6 +19,7 @@ public class Globals : MonoBehaviour
     public int shirtNum = 0;
     public int armNum = 4;
     public int pantsNum = 0;
+    public string superheroName = "";
 
     public List<float> levelsCompleted = new List<float>();
 }

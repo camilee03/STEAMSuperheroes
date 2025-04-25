@@ -251,7 +251,7 @@ MonoBehaviour:
   inputGates: []
   outputGates: []
   gateState: 2
-  gateValue: 0
+  gateValue: 2
 --- !u!1 &4478155792742936935
 GameObject:
   m_ObjectHideFlags: 0
