@@ -25,6 +25,8 @@ public class LogicGate : MonoBehaviour
     [SerializeField] GameObject highlight = null;
     [SerializeField] GameObject[] gateVisuals; //0 = START, 1 = END, 2 = EMPTY, 3 = AND, 4 = OR, 5 = NOT
     [SerializeField] bool canBeChanged = true;
+    [SerializeField] bool showVisualText = true;
+    [SerializeField] TextMeshProUGUI visualText = null;
     [Header("Gate Choice Menu - For Changable Only")]
     [SerializeField] bool andAllowed = true;
     [SerializeField] bool orAllowed = true;
@@ -43,6 +45,7 @@ public class LogicGate : MonoBehaviour
         circuitManager = FindFirstObjectByType<CircuitsManager>();
         highlight.SetActive(false);
         //if (gateState == LOGIC_STATE.START) gateValue = true;
+        if (!showVisualText) visualText.text = "";
     }
     //Called by clicking on itself (as a button)
     public void ToggleDropdown() 
@@ -92,21 +95,27 @@ public class LogicGate : MonoBehaviour
         {
             case LOGIC_STATE.START:
                 gateVisuals[0].SetActive(true);
+                if (showVisualText) visualText.text = "";
                 break;
             case LOGIC_STATE.END:
                 gateVisuals[1].SetActive(true);
+                if (showVisualText) visualText.text = "";
                 break;
             case LOGIC_STATE.EMPTY:
                 gateVisuals[2].SetActive(true);
+                if (showVisualText) visualText.text = "";
                 break;
             case LOGIC_STATE.AND:
                 gateVisuals[3].SetActive(true);
+                if (showVisualText) visualText.text = "AND";
                 break;
             case LOGIC_STATE.OR:
                 gateVisuals[4].SetActive(true);
+                if (showVisualText) visualText.text = "OR";
                 break;
             case LOGIC_STATE.NOT:
                 gateVisuals[5].SetActive(true);
+                if (showVisualText) visualText.text = "NOT";
                 break;
         }
 

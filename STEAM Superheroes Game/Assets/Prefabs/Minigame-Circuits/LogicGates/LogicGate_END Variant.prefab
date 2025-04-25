@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: canBeChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
+      propertyPath: showVisualText
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2256007732793371069, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2

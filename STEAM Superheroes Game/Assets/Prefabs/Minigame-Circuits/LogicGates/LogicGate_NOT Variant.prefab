@@ -20,9 +20,21 @@ PrefabInstance:
       propertyPath: canBeChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1673815052163937649, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
+      propertyPath: showVisualText
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2584129693949176367, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
       propertyPath: m_Name
       value: LogicGate_NOT Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554182169520891132, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
+      propertyPath: m_text
+      value: NOT
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554182169520891132, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6710407988783256142, guid: 6894621777b0f2e4292b6288c671b3b1, type: 3}
       propertyPath: m_IsActive
