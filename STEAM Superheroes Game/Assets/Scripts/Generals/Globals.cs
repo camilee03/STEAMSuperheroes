@@ -9,7 +9,7 @@ public class Globals : MonoBehaviour
     {
         // Creates an instance in the scene if there isn't one already
         if (Instance != null && Instance != this) { Destroy(this); }
-        else { Instance = this; DontDestroyOnLoad(this.gameObject); }
+        else { Instance = this; DontDestroyOnLoad(this); }
     }
 
     public int score = 0;

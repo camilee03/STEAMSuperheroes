@@ -253,9 +253,11 @@ public class ProgrammingMinigameManager : MonoBehaviour
     //Trigger Win Condition
     void WinGame()
     {
-        gameEnded = true;
-        StopRun(false);
-        winLevel.ActivateCanvas();
+        if (!gameEnded) {
+            gameEnded = true;
+            StopRun(false);
+            winLevel.ActivateCanvas();
+        }
     }
     //Getter and setter if code blocks list is editable
     public bool CodeEditable

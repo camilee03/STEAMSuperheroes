@@ -10,7 +10,7 @@ public class SceneLoader : MonoBehaviour
     //Create singleton
     private void Awake() {
         if (SceneLoaderInstance != null && SceneLoaderInstance != this) {
-            Destroy(this);
+            Destroy(this.gameObject);
         } else {
             SceneLoaderInstance = this;
         }

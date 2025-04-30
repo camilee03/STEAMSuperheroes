@@ -12,6 +12,8 @@ public class MineralManager : MonoBehaviour
     [SerializeField] WinLevel winLevel;
     public bool isFinalLevel;
 
+    bool hasCompletedlevel = false;
+
 
     private void Update()
     {
@@ -30,8 +32,12 @@ public class MineralManager : MonoBehaviour
             //+ "\nMare Basalt: " + numMareBasalt
             //+ "\nParadot: " + numParadot
 
-            if (numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) 
-            { winLevel.currencyAmountToAdd = totalClicks - (numClicksUsed - 16) / 2; winLevel.ActivateCanvas(); }
+            if (!hasCompletedlevel && numIlmenite + numAnorthosite + numMareBasalt + numParadot + numHelium == totalMinerals) 
+            {
+                hasCompletedlevel = true;
+                winLevel.currencyAmountToAdd = totalClicks - (numClicksUsed - 16) / 2;
+                winLevel.ActivateCanvas(); 
+            }
         }
 
         clickText.text = "Resources used: " + numClicksUsed;
