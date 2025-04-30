@@ -40,6 +40,7 @@ public class WinLevel : MonoBehaviour
                 { 
                     SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1); 
                 }
+                else { SceneManager.LoadSceneAsync(2); }
                 
             }
             else

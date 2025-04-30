@@ -51,8 +51,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Pre-Minigames/PreMinigameFinal.unity
     guid: 54d7866caa363d2479c05fae47f7231a
   - enabled: 1
-    path: Assets/Scenes/Final Game.unity
-    guid: 557606c00ddf6784b81b898197e7e0da
+    path: Assets/Scenes/FinalGame/Final1.unity
+    guid: 886913456f8a8fb488c3ec6af7bb156b
+  - enabled: 1
+    path: Assets/Scenes/FinalGame/Final2.unity
+    guid: 325bef80768e3d548980816989b38781
+  - enabled: 1
+    path: Assets/Scenes/FinalGame/Final3.unity
+    guid: 7feb06534fd4300448911c7d2496aeb5
+  - enabled: 1
+    path: Assets/Scenes/FinalGame/Final4.unity
+    guid: 99b72193fbd240a4e83b9ccf2d6dd94b
+  - enabled: 1
+    path: Assets/Scenes/FinalGame/Final5.unity
+    guid: a4e5ddb12d35470478a1c0f3b91881bd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
