@@ -32,6 +32,9 @@ public class WinLevel : MonoBehaviour
             // Check if the level is a final level
             if (levelCode.ToString().StartsWith('6'))
             {
+                Debug.Log("One of final level completed");
+                winScreenCanvas.SetActive(false);
+
                 currencyText.text = "Completed!";
                 Globals.Instance.levelsCompleted.Add(levelCode);
 
