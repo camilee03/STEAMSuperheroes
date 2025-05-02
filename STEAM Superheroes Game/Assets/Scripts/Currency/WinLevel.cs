@@ -14,9 +14,12 @@ public class WinLevel : MonoBehaviour
     [SerializeField] GameObject winScreenCanvas = null;
     [SerializeField] TextMeshProUGUI currencyText = null;
 
+    bool hasCompletedLevel = false;
+
     //This opens win screen and declares level won. Called by other scripts
     public void ActivateCanvas()
     {
+        if (hasCompletedLevel) return;
         winScreenCanvas.SetActive(true);
         currencyText.text = "";
         CompleteLevel();
@@ -27,6 +30,7 @@ public class WinLevel : MonoBehaviour
     }
     //Add to level completion in Glboals
     public void CompleteLevel() {
+        hasCompletedLevel = true;
         //Check if the level is not already completed in Globals.Instance
         if (!Globals.Instance.levelsCompleted.Contains(levelCode)) {
             // Check if the level is a final level

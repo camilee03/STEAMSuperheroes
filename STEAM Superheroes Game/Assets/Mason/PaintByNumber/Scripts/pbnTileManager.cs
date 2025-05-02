@@ -14,8 +14,6 @@ public class pbnTileManager : MonoBehaviour
     [SerializeField] List<Vector3Int> checkPositions;
     [SerializeField] List<TileBase> correctTiles;
 
-    bool hasCompletedLevel = false;
-    
     void Start()
     {
         tilemap = this.GetComponent<Tilemap>();
@@ -66,10 +64,7 @@ public class pbnTileManager : MonoBehaviour
         }
         if(count == checkPositions.Count)
         {
-            if (!hasCompletedLevel) {
-                hasCompletedLevel = true;
-                winLevel.ActivateCanvas();
-            }
+            winLevel.ActivateCanvas();
         }
     }
 }
