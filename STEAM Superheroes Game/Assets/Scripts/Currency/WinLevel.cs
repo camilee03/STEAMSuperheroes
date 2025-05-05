@@ -42,7 +42,7 @@ public class WinLevel : MonoBehaviour
                 currencyText.text = "Completed!";
                 Globals.Instance.levelsCompleted.Add(levelCode);
 
-                // Load next level automatically
+                // Load next level automatically if not final level
                 if (SceneManager.sceneCount < SceneManager.GetActiveScene().buildIndex + 1) 
                 { 
                     SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1); 
