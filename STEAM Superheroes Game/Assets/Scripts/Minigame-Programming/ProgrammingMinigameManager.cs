@@ -30,6 +30,9 @@ public class ProgrammingMinigameManager : MonoBehaviour
     //INIT
     CodeSelectSystem selectSystem = null;
 
+    [Header("Dev Tools")]
+    [SerializeField] bool devToolsEnabled = false;
+
     [Header("Drone")]
     [SerializeField] GameObject dronePrefab;
     [SerializeField] GameObject drone = null;
@@ -70,6 +73,16 @@ public class ProgrammingMinigameManager : MonoBehaviour
     {
         selectSystem = FindFirstObjectByType<CodeSelectSystem>();
         ResetGame();
+    }
+    private void Update() {
+        if (devToolsEnabled) { //Complete level immediately
+            if (Input.GetKeyDown(KeyCode.L)) {
+                Pickup_Satellite[] sats = FindObjectsByType<Pickup_Satellite>(FindObjectsSortMode.None);
+                foreach (Pickup_Satellite s in sats) {
+                    s.TriggerPickup();
+                }
+            }
+        }
     }
     //Start the drone's run
     public void StartRun() //Called By Button

@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
     int currentLevelIndex = 0;
 
     [Header("Locking Mechanisms")]
-    bool finalLevelUnlocked;
+    [SerializeField] bool finalLevelUnlocked;
 
     /// <summary> Save current gamestate </summary>
     public void SaveGame()

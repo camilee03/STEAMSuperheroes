@@ -2749,6 +2749,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 93851aa6e27de6746abb98e672597942, type: 3}
   currentLevel: {fileID: 322470071}
   levelLockedText: {fileID: 1993199191}
+  finalLevelUnlocked: 0
 --- !u!4 &1510659051
 Transform:
   m_ObjectHideFlags: 0
