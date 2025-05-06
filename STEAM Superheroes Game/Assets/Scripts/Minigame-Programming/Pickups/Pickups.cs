@@ -10,7 +10,7 @@ public class Pickups : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    protected virtual void TriggerPickup()
+    public virtual void TriggerPickup()
     {
         return;
     }
