@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 132236710}
   - component: {fileID: 132236709}
   m_Layer: 5
-  m_Name: Instruction1
+  m_Name: InstructionImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cd5cbe89e2c50e749b804c9359c1f587, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75906b8a2d2ac884f8c30d3ca43d5040, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 306721671}
   - component: {fileID: 306721670}
   m_Layer: 5
-  m_Name: Instr1Text
+  m_Name: Text_Satellite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 302, y: -324}
+  m_AnchoredPosition: {x: -29.7, y: -219.6}
   m_SizeDelta: {x: 1236.0072, y: 546.7607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &306721670
@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 508872366}
   - component: {fileID: 508872365}
   m_Layer: 5
-  m_Name: Arrow
+  m_Name: Arrow_Satellite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,17 +555,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508872363}
-  m_LocalRotation: {x: -0, y: -0, z: -0.5, w: 0.8660254}
+  m_LocalRotation: {x: -0, y: -0, z: -0.13779724, w: 0.99046046}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1662354342}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -60}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15.841}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 634, y: -203}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 366.8, y: -109.2}
+  m_SizeDelta: {x: 50, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &508872365
 MonoBehaviour:
@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 539431039}
   - component: {fileID: 539431038}
   m_Layer: 5
-  m_Name: Instr2Text
+  m_Name: Text_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press start to add directions
+  m_text: Press code block to add directions
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -828,7 +828,7 @@ GameObject:
   - component: {fileID: 1137401073}
   - component: {fileID: 1137401072}
   m_Layer: 5
-  m_Name: Arrow2
+  m_Name: Arrow_Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -850,8 +850,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 216, y: -104}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 216, y: -112.6}
+  m_SizeDelta: {x: 50, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137401072
 MonoBehaviour:
@@ -903,7 +903,7 @@ GameObject:
   - component: {fileID: 1265172244}
   - component: {fileID: 1265172243}
   m_Layer: 5
-  m_Name: Instr3Text
+  m_Name: Text_Play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -925,7 +925,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 84, y: -193}
+  m_AnchoredPosition: {x: -249, y: -421}
   m_SizeDelta: {x: 1236.0072, y: 546.7607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1265172243
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press the X to restart
+  m_text: Press Play to start drone
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1039,7 +1039,7 @@ GameObject:
   - component: {fileID: 1552796169}
   - component: {fileID: 1552796168}
   m_Layer: 5
-  m_Name: Arrow3
+  m_Name: Arrow_Play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1052,17 +1052,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552796166}
-  m_LocalRotation: {x: 0, y: 0, z: -0.5, w: 0.8660254}
+  m_LocalRotation: {x: -0, y: -0, z: -0.26538792, w: 0.9641417}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1662354342}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -60}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30.78}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 395, y: -36}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 189, y: -281}
+  m_SizeDelta: {x: 50, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1552796168
 MonoBehaviour:
@@ -1133,10 +1133,10 @@ RectTransform:
   - {fileID: 132236708}
   - {fileID: 508872364}
   - {fileID: 306721669}
-  - {fileID: 539431037}
   - {fileID: 1137401071}
-  - {fileID: 1265172242}
+  - {fileID: 539431037}
   - {fileID: 1552796167}
+  - {fileID: 1265172242}
   - {fileID: 787887192}
   m_Father: {fileID: 6291324428610211176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
