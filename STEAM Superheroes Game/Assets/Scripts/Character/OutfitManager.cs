@@ -1,10 +1,12 @@
+using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class OutfitManager : MonoBehaviour
 {
-    // Images of shirts that can exist
+    [Header("Types of Images")]
     public Texture2D[] shirts;
     public Texture2D[] pants;
     public Texture2D[] face;
@@ -12,19 +14,29 @@ public class OutfitManager : MonoBehaviour
     public Texture2D[] helmet;
     Texture2D[] currentTextures;
 
-    // UI Images that can be switched between
-    public RawImage[] shirtImages;
-    public RawImage[] pantImages;
-    public RawImage[] faceImages;
-    public RawImage[] armImages;
-    RawImage[] currentImages;
-
     // Final UI Image
+    [Header("Final Images")]
     [SerializeField] RawImage finalShirt;
     [SerializeField] RawImage finalPant;
     [SerializeField] RawImage finalFace;
     [SerializeField] RawImage finalArms;
     [SerializeField] RawImage finalHelmet;
+
+    // Images
+    [Header("Image Choices")]
+    [SerializeField] RawImage[] shirtImages;
+    [SerializeField] RawImage[] pantsImages;
+    [SerializeField] RawImage[] faceImages;
+    [SerializeField] RawImage[] armImages;
+    RawImage[] currentImages;
+
+    // GameObject that holds image options
+    [Header("GameObjects")]
+    [SerializeField] GameObject shirtObject;
+    [SerializeField] GameObject pantObject;
+    [SerializeField] GameObject faceAndArmObject;
+    //[SerializeField] GameObject helmetObject;
+    GameObject currentObject;
 
     // What current selection item is
     bool isPants;
@@ -37,7 +49,7 @@ public class OutfitManager : MonoBehaviour
 
     // color scheme will be determined by %4 values
 
-    public int colorScheme = 0; // determines what color the outfits are
+    int colorScheme = 0; // determines what color the outfits are
     int colorVar = 0; // determines how many color variations there are
 
     private void Start()
@@ -70,21 +82,17 @@ public class OutfitManager : MonoBehaviour
         // Randomize skin
         colorScheme = Random.Range(0, 5);
         skinColor = colorScheme;
-        ChangeOutfitType("face");
-        SetOutfit(Random.Range(1, 4));
+        SetOutfit(Random.Range(1, 4), "face");
 
-        ChangeOutfitType("arms");
-        SetOutfit(Random.Range(1, 3));
+        SetOutfit(Random.Range(1, 3), "arms");
 
         // Randomize clothes
         int newColor = Random.Range(0, 3);
-        ChangeOutfitType("shirt");
         colorScheme = newColor;
-        SetOutfit(Random.Range(1, 5));
+        SetOutfit(Random.Range(1, 5), "shirt");
 
-        ChangeOutfitType("pants");
         colorScheme = newColor;
-        SetOutfit(Random.Range(1, 5));
+        SetOutfit(Random.Range(1, 5), "pants");
 
         int changeHelmet = Random.Range(0, 2);
         if (changeHelmet == 1) { ChangeOutfitType("helmet"); }
@@ -94,8 +102,10 @@ public class OutfitManager : MonoBehaviour
         skinColor = initialSkinColor;
     }
 
-    public void SetOutfit(int outfit)
+    public void SetOutfit(int outfit, string name)
     {
+        ChangeOutfitType(name);
+
         int outfitNum = (outfit - 1) * colorVar + colorScheme;
 
         if (isPants)
@@ -166,18 +176,10 @@ public class OutfitManager : MonoBehaviour
     {
         for (int i = 0; i < currentImages.Length; i++)
         {
-            currentImages[i].enabled = true;
-
             currentImages[i].texture = currentTextures[i * colorVar + colorScheme]; 
         }
-    }
 
-    void DeactivateImages(RawImage[] imageList)
-    {
-        foreach (RawImage image in imageList)
-        {
-            image.enabled = false;
-        }
+        currentObject.SetActive(true);
     }
 
     public void ChangeOutfitType(string name)
@@ -189,17 +191,14 @@ public class OutfitManager : MonoBehaviour
             isArms = false;
             isFace = false;
 
-            DeactivateImages(pantImages);
-            DeactivateImages(shirtImages);
-            DeactivateImages(faceImages);
-            DeactivateImages(armImages);
+            if (currentObject != null) currentObject.SetActive(false);
 
             switch (name)
             {
-                case "pants": isPants = true; currentImages = pantImages; currentTextures = pants; colorVar = 4; colorScheme = 0; break;
-                case "shirt": isShirts = true; currentImages = shirtImages; currentTextures = shirts; colorVar = 4; colorScheme = 0; break;
-                case "face": isFace = true; currentImages = faceImages; currentTextures = face; colorVar = 6; colorScheme = skinColor; break;
-                case "arms": isArms = true; currentImages = armImages; currentTextures = arm; colorVar = 6; colorScheme = skinColor; break;
+                case "pants": isPants = true; currentImages = pantsImages;  currentObject = pantObject; currentTextures = pants; colorVar = 4; colorScheme = 0; break;
+                case "shirt": isShirts = true; currentImages = shirtImages;  currentObject = shirtObject; currentTextures = shirts; colorVar = 4; colorScheme = 0; break;
+                case "face": isFace = true; currentImages = faceImages; currentObject = faceAndArmObject; currentTextures = face; colorVar = 6; colorScheme = skinColor; break;
+                case "arms": isArms = true; currentImages = armImages; currentObject = faceAndArmObject; currentTextures = arm; colorVar = 6; colorScheme = skinColor; break;
             }
         }
         else { SwitchHelmet(); }

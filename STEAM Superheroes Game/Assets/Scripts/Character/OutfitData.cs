@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class OutfitData : MonoBehaviour
 {
-    int size = 20;
     int initialSize;
     [SerializeField] OutfitManager outfitManager;
 
@@ -22,7 +21,8 @@ public class OutfitData : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            outfitManager.SetOutfit(int.Parse(gameObject.name));
+            string outfitType = gameObject.name.Substring(0, gameObject.name.Length-2);
+            outfitManager.SetOutfit(int.Parse(gameObject.name[(gameObject.name.Length - 1)..]), outfitType);
         }
     }
     private void OnMouseExit()
