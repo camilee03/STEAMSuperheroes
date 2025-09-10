@@ -42,10 +42,10 @@ public class PauseMenu : MonoBehaviour
     //Make pause menu visible
     public void OpenPauseMenu()
     {
-        int sceneIdx = FindFirstObjectByType<SceneLoader>().GetActiveSceneIdx();
+        int sceneIndex = LevelManager.Instance.GetActiveSceneIndex();
         for (int i = 0; i < doNotOpenSceneIdx.Length; i++)
         {
-            if (sceneIdx == doNotOpenSceneIdx[i])
+            if (sceneIndex == doNotOpenSceneIdx[i])
             {
                 return;
             }
@@ -64,7 +64,7 @@ public class PauseMenu : MonoBehaviour
     public void ToMainMenu()
     {
         ClosePauseMenu();
-        FindFirstObjectByType<SceneLoader>().LoadMainMenu();
+        LevelManager.Instance.LoadMainMenu();
     }
 
 }

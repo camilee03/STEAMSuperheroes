@@ -1,10 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static OutfitManager;
+using Random = UnityEngine.Random;
 
 public class OutfitManager : MonoBehaviour
 {
-    // Images of shirts that can exist
+    [Header("Types of Images")]
     public Texture2D[] shirts;
     public Texture2D[] pants;
     public Texture2D[] face;
@@ -12,37 +18,49 @@ public class OutfitManager : MonoBehaviour
     public Texture2D[] helmet;
     Texture2D[] currentTextures;
 
-    // UI Images that can be switched between
-    public RawImage[] shirtImages;
-    public RawImage[] pantImages;
-    public RawImage[] faceImages;
-    public RawImage[] armImages;
-    RawImage[] currentImages;
-
     // Final UI Image
+    [Header("Final Images")]
     [SerializeField] RawImage finalShirt;
     [SerializeField] RawImage finalPant;
     [SerializeField] RawImage finalFace;
     [SerializeField] RawImage finalArms;
     [SerializeField] RawImage finalHelmet;
 
+    // Images
+    [Header("Image Choices")]
+    [SerializeField] RawImage[] shirtImages;
+    [SerializeField] RawImage[] pantsImages;
+    [SerializeField] RawImage[] faceImages;
+    [SerializeField] RawImage[] armImages;
+    RawImage[] currentImages;
+
+    // GameObject that holds image options
+    [Header("GameObjects")]
+    [SerializeField] GameObject shirtObject;
+    [SerializeField] GameObject pantObject;
+    [SerializeField] GameObject faceAndArmObject;
+    //[SerializeField] GameObject helmetObject;
+    GameObject currentObject;
+
     // What current selection item is
-    bool isPants;
-    bool isShirts;
-    bool isFace;
-    bool isArms;
+    [Serializable]
+    public enum OutfitType { Pants, Shirts, Face, Arms, Helmet };
+
+    OutfitType currentOutfit;
+
     int helmetNum = 0;
 
     int skinColor;
 
     // color scheme will be determined by %4 values
 
-    public int colorScheme = 0; // determines what color the outfits are
+    int colorScheme = 0; // determines what color the outfits are
     int colorVar = 0; // determines how many color variations there are
 
     private void Start()
     {
-        ChangeOutfitType("face");
+        ChangeOutfitType(OutfitType.Face);
+        ChangeOutfitType(OutfitType.Arms);
 
         // sets the outfit if the globals are different 
         finalShirt.texture = shirts[Globals.Instance.shirtNum];
@@ -53,103 +71,94 @@ public class OutfitManager : MonoBehaviour
         skinColor = Globals.Instance.faceNum;
     }
 
-    private void Update()
-    {
-        CycleThroughOutfits();
-    }
-
     public void RandomizeOutfit()
     {
+        // Store current values
         int initialColorScheme = colorScheme;
         int initialSkinColor = skinColor;
-        string currentOutfitType = "face";
-        if (isArms) { currentOutfitType = "arms"; }
-        if (isShirts) { currentOutfitType = "shirt"; }
-        if (isPants) { currentOutfitType = "pants"; }
+        OutfitType currentOutfitType = currentOutfit;
 
         // Randomize skin
         colorScheme = Random.Range(0, 5);
         skinColor = colorScheme;
-        ChangeOutfitType("face");
-        SetOutfit(Random.Range(1, 4));
+        SetOutfit(Random.Range(1, 4), OutfitType.Face);
 
-        ChangeOutfitType("arms");
-        SetOutfit(Random.Range(1, 3));
+        SetOutfit(Random.Range(1, 3), OutfitType.Arms);
 
         // Randomize clothes
         int newColor = Random.Range(0, 3);
-        ChangeOutfitType("shirt");
         colorScheme = newColor;
-        SetOutfit(Random.Range(1, 5));
+        SetOutfit(Random.Range(1, 5), OutfitType.Shirts);
 
-        ChangeOutfitType("pants");
         colorScheme = newColor;
-        SetOutfit(Random.Range(1, 5));
+        SetOutfit(Random.Range(1, 5), OutfitType.Pants);
 
         int changeHelmet = Random.Range(0, 2);
-        if (changeHelmet == 1) { ChangeOutfitType("helmet"); }
+        if (changeHelmet == 1) { ChangeOutfitType(OutfitType.Helmet); }
 
         ChangeOutfitType(currentOutfitType);
         colorScheme = initialColorScheme;
         skinColor = initialSkinColor;
     }
 
-    public void SetOutfit(int outfit)
+    public void SetOutfit(int outfit, OutfitType name)
     {
+        ChangeOutfitType(name);
+
         int outfitNum = (outfit - 1) * colorVar + colorScheme;
 
-        if (isPants)
+        switch (currentOutfit)
         {
-            finalPant.texture = pants[outfitNum];
-            Globals.Instance.pantsNum = outfitNum;
-        }
-        if (isShirts)
-        {
-            finalShirt.texture = shirts[outfitNum];
-            Globals.Instance.shirtNum = outfitNum;
-        }
+            case OutfitType.Pants:
+                finalPant.texture = pants[outfitNum];
+                Globals.Instance.pantsNum = outfitNum;
+                break;
 
-        if (isFace)
-        {
-            finalFace.texture = face[outfitNum];
-            Globals.Instance.faceNum = outfitNum;
+            case OutfitType.Shirts:
+                finalShirt.texture = shirts[outfitNum];
+                Globals.Instance.shirtNum = outfitNum;
+                break;
 
-            if (skinColor == -1)
-            {
-                finalArms.texture = arm[colorScheme];
-                Globals.Instance.armNum = colorScheme;
-            }
-            else
-            {
-                int armOutfit = 0;
-                if (Globals.Instance.armNum >= 0) { armOutfit = Globals.Instance.armNum - skinColor; }
+            case OutfitType.Face:
+                finalFace.texture = face[outfitNum];
+                Globals.Instance.faceNum = outfitNum;
 
+                // 0-5 (o0) 6-11 (o1)
+
+                // Also update the arms
+
+                int armOutfit = 0; 
+                if (Globals.Instance.armNum > 5)
+                {
+                    armOutfit = 6;
+                }
+                Debug.Log($"Arm Num: {Globals.Instance.armNum} Arm Outfit: {armOutfit} Color Scheme {colorScheme}");
                 finalArms.texture = arm[armOutfit + colorScheme];
                 Globals.Instance.armNum = armOutfit + colorScheme;
-            }
 
-            skinColor = colorScheme;
-        }
-        if (isArms)
-        {
-            finalArms.texture = arm[outfitNum];
-            Globals.Instance.armNum = outfitNum;
+                skinColor = colorScheme;
+                break;
 
-            if (skinColor == -1)
-            {
-                finalFace.texture = face[colorScheme];
-                Globals.Instance.faceNum = colorScheme;
-            }
-            else
-            {
+            case OutfitType.Arms:
+                finalArms.texture = arm[outfitNum];
+                Globals.Instance.armNum = outfitNum;
+
+                // Also update the face
                 int faceOutfit = 0;
-                if (Globals.Instance.faceNum >= 0) { faceOutfit = Globals.Instance.faceNum - skinColor; }
-
+                if (Globals.Instance.faceNum > 11) 
+                {
+                    faceOutfit = 12;
+                }
+                else if (Globals.Instance.faceNum > 5)
+                {
+                    faceOutfit = 6;
+                }
+                Debug.Log($"Face Num: {Globals.Instance.faceNum} Face Outfit: {faceOutfit} Color Scheme {colorScheme}");
                 finalFace.texture = face[faceOutfit + colorScheme];
                 Globals.Instance.faceNum = faceOutfit + colorScheme;
-            }
 
-            skinColor = colorScheme;
+                skinColor = colorScheme;
+                break;
         }
     }
 
@@ -166,47 +175,44 @@ public class OutfitManager : MonoBehaviour
     {
         for (int i = 0; i < currentImages.Length; i++)
         {
-            currentImages[i].enabled = true;
-
             currentImages[i].texture = currentTextures[i * colorVar + colorScheme]; 
         }
     }
 
-    void DeactivateImages(RawImage[] imageList)
+    public void ChangeOutfitType(OutfitType newOutfit)
     {
-        foreach (RawImage image in imageList)
+        if (newOutfit == currentOutfit) { CycleThroughOutfits(); return; }
+
+        if (newOutfit != OutfitType.Helmet)
         {
-            image.enabled = false;
-        }
-    }
+            shirtObject.SetActive(false);
+            pantObject.SetActive(false);
+            faceAndArmObject.SetActive(false);
 
-    public void ChangeOutfitType(string name)
-    {
-        if (name != "helmet")
-        {
-            isPants = false;
-            isShirts = false;
-            isArms = false;
-            isFace = false;
+            currentOutfit = newOutfit;
 
-            DeactivateImages(pantImages);
-            DeactivateImages(shirtImages);
-            DeactivateImages(faceImages);
-            DeactivateImages(armImages);
-
-            switch (name)
+            switch (newOutfit)
             {
-                case "pants": isPants = true; currentImages = pantImages; currentTextures = pants; colorVar = 4; colorScheme = 0; break;
-                case "shirt": isShirts = true; currentImages = shirtImages; currentTextures = shirts; colorVar = 4; colorScheme = 0; break;
-                case "face": isFace = true; currentImages = faceImages; currentTextures = face; colorVar = 6; colorScheme = skinColor; break;
-                case "arms": isArms = true; currentImages = armImages; currentTextures = arm; colorVar = 6; colorScheme = skinColor; break;
+                case OutfitType.Pants: currentImages = pantsImages;  currentObject = pantObject; currentTextures = pants; colorVar = 4; colorScheme = 0; break;
+                case OutfitType.Shirts: currentImages = shirtImages;  currentObject = shirtObject; currentTextures = shirts; colorVar = 4; colorScheme = 0; break;
+                case OutfitType.Face: currentImages = faceImages; currentObject = faceAndArmObject; currentTextures = face; colorVar = 6; colorScheme = skinColor; break;
+                case OutfitType.Arms: currentImages = armImages; currentObject = faceAndArmObject; currentTextures = arm; colorVar = 6; colorScheme = skinColor; break;
             }
+
+            currentObject.SetActive(true);
         }
         else { SwitchHelmet(); }
+
+        CycleThroughOutfits();
     }
 
     public void ChangeColorScheme(int newColors)
     {
         colorScheme = newColors;
+        CycleThroughOutfits();
+        if (currentOutfit == OutfitType.Face || currentOutfit == OutfitType.Arms) { skinColor = colorScheme; }
+
+        if (currentOutfit == OutfitType.Face) { ChangeOutfitType(OutfitType.Arms); }
+        if (currentOutfit == OutfitType.Arms) { ChangeOutfitType(OutfitType.Face); }
     }
 }

@@ -7,7 +7,7 @@ public class WinLevel : MonoBehaviour
     //Handles level completion, and currency addition
 
     [Header("Level Specific - Be Sure to Change")]
-    [SerializeField] float levelCode = 0; //change this to whichever level you are on in inspector
+    [SerializeField] float levelCode = 0; // change this to whichever level you are on in inspector
     public int currencyAmountToAdd = 0;
 
     [Header("References - Do Not Change")]
@@ -43,11 +43,11 @@ public class WinLevel : MonoBehaviour
                 Globals.Instance.levelsCompleted.Add(levelCode);
 
                 // Load next level automatically if not final level
-                if (SceneManager.sceneCount < SceneManager.GetActiveScene().buildIndex + 1) 
-                { 
-                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1); 
+                if (SceneManager.sceneCount < LevelManager.Instance.GetActiveSceneIndex() + 1) 
+                {
+                    LevelManager.Instance.LoadNextScene();
                 }
-                else { SceneManager.LoadSceneAsync(2); }
+                else { LevelManager.Instance.LoadMainMenu(); }
                 
             }
             else
@@ -68,6 +68,6 @@ public class WinLevel : MonoBehaviour
     //Load Main Menu
     public void ToMainMenu() {
         DeactivateCanvas();
-        FindFirstObjectByType<SceneLoader>().LoadMainMenu();
+        LevelManager.Instance.LoadMainMenu();
     }
 }

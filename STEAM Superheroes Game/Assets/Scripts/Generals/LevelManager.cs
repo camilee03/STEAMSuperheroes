@@ -10,15 +10,42 @@ public class LevelManager : MonoBehaviour
 {
 
     [SerializeField] Texture2D[] levelImages;
+
+    [Header("Main Menu Specific")]
     [SerializeField] RawImage currentLevel;
     [SerializeField] TMP_Text levelLockedText;
+    [SerializeField] GameObject playButton;
+
     bool textFading;
     int finalLevelIndex = 14;
-    int mainMenuIndex = 2;
-    int currentLevelIndex = 0;
+    int mainMenuIndex = 1;
+    string currentLevelName = "";
 
     [Header("Locking Mechanisms")]
     [SerializeField] bool finalLevelUnlocked;
+
+    public static LevelManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        playButton.GetComponent<Button>().enabled = false;
+        playButton.GetComponent<Image>().enabled = false;
+        playButton.transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    #region Save/Load Data
 
     /// <summary> Save current gamestate </summary>
     public void SaveGame()
@@ -60,34 +87,87 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    /// <summary> Starts the game based on the current loaded level </summary>
-    public void Play()
-    {
-        if (currentLevelIndex < 0) {
-            Debug.Log("No level selected");
-            return;
-        }
-        LoadScene(currentLevelIndex);
-    }
+    #endregion
 
+    #region Scene Loading
     /// <summary> Loads Main Menu </summary>
     public void LoadMainMenu()
     {
+        Debug.Log("Loading main menu " + "(mm index: " + mainMenuIndex + ")");
         SceneManager.LoadScene(mainMenuIndex);
     }
 
-    /// <summary> Loads Scene by index number</summary>
+    /// <summary> Loads Scene by name </summary>
+    public void LoadScene(string sceneName)
+    {
+        Debug.Log("Loading scene: " + sceneName + " by name");
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+
+        if (scene.buildIndex != finalLevelIndex || CheckLockedLevels()) { SceneManager.LoadScene(sceneName); }
+        else if (!textFading) { StartCoroutine(FadeText(levelLockedText)); }
+    }
+
+    /// <summary> Loads scene by its index </summary>
     public void LoadScene(int index)
     {
+        Debug.Log("Loading scene: " + index + " by index");
+
         if (index != finalLevelIndex || CheckLockedLevels()) { SceneManager.LoadScene(index); }
         else if (!textFading) { StartCoroutine(FadeText(levelLockedText)); }
     }
 
-    /// <summary> Determines what the current level to load is </summary>
-    public void SetNewLevel(int level)
+    /// <summary> Load next scene in build order </summary>
+    public void LoadNextScene()
     {
-        currentLevelIndex = (level + 2) * 2; // 4,6,8,10,12,14
-        currentLevel.texture = levelImages[level];
+        Debug.Log("Loading next scene in build order");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    /// <summary> Load same scene </summary>
+    public void ReloadScene()
+    {
+        Debug.Log("Reloading Scene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public int GetActiveSceneIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
+
+    #endregion
+
+    #region Main Menu
+
+    /// <summary> Starts the game based on the current loaded level </summary>
+    public void Play()
+    {
+        if (currentLevelName == "")
+        {
+            Debug.Log("No level selected");
+            return;
+        }
+
+        LoadScene(currentLevelName);
+    }
+
+    /// <summary> Determines what the current level to load is </summary>
+    public void SetNewLevel(int levelNumber)
+    {
+        if (playButton == null) playButton = GameObject.Find("Play");
+
+        playButton.transform.GetChild(0).gameObject.SetActive(true);
+        playButton.GetComponent<Button>().enabled = true;
+        playButton.GetComponent<Image>().enabled = true;
+
+        string levelName = "PreMinigame" + levelNumber;
+
+        currentLevelName = levelName;
+        if (currentLevel == null) currentLevel = GameObject.Find("CurrentLevel").GetComponent<RawImage>();
+
+        currentLevel.texture = levelImages[levelNumber-1];
+
+        Debug.Log(currentLevelName);
     }
 
     /// <summary> Checks if final level is unlocked </summary>
@@ -110,6 +190,8 @@ public class LevelManager : MonoBehaviour
         finalLevelUnlocked = true;
         return true;
     }
+
+    #endregion
 
     IEnumerator FadeText(TMP_Text text) 
     {

@@ -5,7 +5,6 @@ using System.Net;
 using System.Collections;
 using static UnityEngine.UI.Image;
 using UnityEngine.Rendering.RenderGraphModule;
-using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
@@ -87,6 +86,9 @@ public class ProgrammingMinigameManager : MonoBehaviour
     //Start the drone's run
     public void StartRun() //Called By Button
     {
+        foreach(GameObject codeBlock in selectSystem.GetCodeBlocksList()) {
+            codeBlock.GetComponent<Button>().enabled = false;
+        }
         CodeEditable = false;
         //codeBlocker.SetActive(true);
         stopRun = false;
@@ -118,6 +120,9 @@ public class ProgrammingMinigameManager : MonoBehaviour
     //Stop the drone's run
     public void StopRun(bool reset) //called by button
     {
+        foreach (GameObject codeBlock in selectSystem.GetCodeBlocksList()) {
+            codeBlock.GetComponent<Button>().enabled = true;
+        }
         CodeEditable = true;
         //codeBlocker.SetActive(false);
         stopRun = true;
