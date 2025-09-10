@@ -188,7 +188,7 @@ public class LogicGate : MonoBehaviour
                 Debug.Log("removing success");
                 endGateCheck = false;
                 circuitManager.RemoveSuccess();
-                gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.black;
+                gateVisuals[1].GetComponentInChildren<SpriteRenderer>().color = Color.red;
             }
         }
         return inputValue;
@@ -202,6 +202,7 @@ public class LogicGate : MonoBehaviour
     int Logic_AND()
     {
         int temporaryState = 1;
+        if (inputGates.Length < 2) return 0; //can't have less than 2 inputs.
         for (int i = 0; i < inputGates.Length; i++)
         {
             if (inputGates[i].GetGateValue() == 0)
@@ -216,6 +217,7 @@ public class LogicGate : MonoBehaviour
     int Logic_OR()
     {
         int temporaryState = 0;
+        //if (inputGates.Length < 2) return 0; //can't have less than 2 inputs.
         for (int i = 0; i < inputGates.Length; i++)
         {
             if (inputGates[i].GetGateValue() == 1)
