@@ -88,7 +88,6 @@ GameObject:
   m_Component:
   - component: {fileID: 743975850676905487}
   - component: {fileID: 2698163966461908037}
-  - component: {fileID: 3186524444999456970}
   m_Layer: 0
   m_Name: WinLevel
   m_TagString: Untagged
@@ -124,30 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfaa78fe2a16f624f9a1c8b247c6ac46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCode: 3.1
+  levelCode: 1.1
   currencyAmountToAdd: 1
   winScreenCanvas: {fileID: 7919626572093622596}
   currencyText: {fileID: 8980735174428645454}
---- !u!114 &3186524444999456970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2978066543678447584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 643f378ccce9716488cfbc27e736d8c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
-  unlockedLevels: 0
-  helmetNum: 0
-  faceNum: 4
-  shirtNum: 0
-  armNum: 4
-  pantsNum: 0
-  levelsCompleted: []
 --- !u!1 &6921507246481336243
 GameObject:
   m_ObjectHideFlags: 0

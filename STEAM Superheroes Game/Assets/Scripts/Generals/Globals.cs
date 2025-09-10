@@ -12,6 +12,7 @@ public class Globals : MonoBehaviour
         else { Instance = this; DontDestroyOnLoad(this); }
     }
 
+    // JSON Values -- To be updated & saved OnSave()
     public int score = 0;
     public int unlockedLevels = 0;
     public int helmetNum = 0;
@@ -22,4 +23,7 @@ public class Globals : MonoBehaviour
     public string superheroName = "";
 
     public List<float> levelsCompleted = new List<float>();
+
+    // Other values -- To be used in general housekeeping
+    public bool gameLoaded = false;
 }

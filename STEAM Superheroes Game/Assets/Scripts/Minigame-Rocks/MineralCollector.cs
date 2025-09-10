@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MineralCollector : MonoBehaviour
@@ -5,19 +6,11 @@ public class MineralCollector : MonoBehaviour
     public int hexsCollided;
     public MineralType mineralType;
     [SerializeField] MineralManager manager;
+    bool destroyingMineral = false;
 
     public enum MineralType
     {
         Ilmenite, Anorthosite, MareBasalt, Helium, Paradot
-    }
-
-    private void Update()
-    {
-        if (hexsCollided <= 1)
-        {
-            manager.AddMineral(mineralType.GetHashCode());
-            Destroy(gameObject);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,6 +21,13 @@ public class MineralCollector : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         hexsCollided--;
+
+        if (hexsCollided <= 1 && !destroyingMineral)
+        {
+            destroyingMineral = true;
+            manager.AddMineral(mineralType.GetHashCode());
+            Destroy(gameObject);
+        }
     }
 
 

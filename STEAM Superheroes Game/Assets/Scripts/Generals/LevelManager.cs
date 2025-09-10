@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
 {
 
     [SerializeField] Texture2D[] levelImages;
+
+    [Header("Main Menu Specific")]
     [SerializeField] RawImage currentLevel;
     [SerializeField] TMP_Text levelLockedText;
     [SerializeField] GameObject playButton;
@@ -34,6 +36,13 @@ public class LevelManager : MonoBehaviour
             Instance = this;
         }
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        playButton.GetComponent<Button>().enabled = false;
+        playButton.GetComponent<Image>().enabled = false;
+        playButton.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     #region Save/Load Data
@@ -145,12 +154,18 @@ public class LevelManager : MonoBehaviour
     /// <summary> Determines what the current level to load is </summary>
     public void SetNewLevel(int levelNumber)
     {
-        playButton.SetActive(true);
+        if (playButton == null) playButton = GameObject.Find("Play");
+
+        playButton.transform.GetChild(0).gameObject.SetActive(true);
+        playButton.GetComponent<Button>().enabled = true;
+        playButton.GetComponent<Image>().enabled = true;
 
         string levelName = "PreMinigame" + levelNumber;
 
         currentLevelName = levelName;
-        currentLevel.texture = levelImages[levelNumber];
+        if (currentLevel == null) currentLevel = GameObject.Find("CurrentLevel").GetComponent<RawImage>();
+
+        currentLevel.texture = levelImages[levelNumber-1];
 
         Debug.Log(currentLevelName);
     }

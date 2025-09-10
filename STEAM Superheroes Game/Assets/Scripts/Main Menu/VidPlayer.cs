@@ -15,8 +15,12 @@ public class VidPlayer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        videoPlayer = GetComponent<VideoPlayer>();
-        InitializeVideo();
+        if (Globals.Instance.gameLoaded) { mainMenuCanvas.SetActive(true); loadMenuCanvas.SetActive(false); }
+        else
+        {
+            videoPlayer = GetComponent<VideoPlayer>();
+            InitializeVideo();
+        }
     }
 
     void InitializeVideo()
@@ -47,5 +51,6 @@ public class VidPlayer : MonoBehaviour
 
         mainMenuCanvas.SetActive(true);
         loadMenuCanvas.SetActive(false);
+        Globals.Instance.gameLoaded = true;
     }
 }

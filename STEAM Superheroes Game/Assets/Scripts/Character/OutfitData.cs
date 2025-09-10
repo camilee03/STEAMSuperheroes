@@ -21,8 +21,19 @@ public class OutfitData : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            string outfitType = gameObject.name.Substring(0, gameObject.name.Length-2);
-            outfitManager.SetOutfit(int.Parse(gameObject.name[(gameObject.name.Length - 1)..]), outfitType);
+            string outfitName = gameObject.name.Substring(0, gameObject.name.Length-1);
+            int outfitNum = int.Parse(gameObject.name[(gameObject.name.Length - 1)..]);
+            OutfitManager.OutfitType outfitType = OutfitManager.OutfitType.Face;
+
+            switch (outfitName)
+            {
+                case "face": outfitType = OutfitManager.OutfitType.Face; break;
+                case "arms": outfitType = OutfitManager.OutfitType.Arms; break;
+                case "pants": outfitType = OutfitManager.OutfitType.Pants; break;
+                case "shirt": outfitType = OutfitManager.OutfitType.Shirts; break;
+            }
+
+            outfitManager.SetOutfit(outfitNum, outfitType);
         }
     }
     private void OnMouseExit()
