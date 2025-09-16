@@ -263,7 +263,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 505044436}
   m_HandleRect: {fileID: 505044435}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3822,11 +3822,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1549066364581665424, guid: af655428a5b44974e9c5e827525ae4fa, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 75.38568
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 1549066364581665424, guid: af655428a5b44974e9c5e827525ae4fa, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 85.194885
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 1549066364581665424, guid: af655428a5b44974e9c5e827525ae4fa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5132,11 +5132,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2321698177391185089, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 66.2482
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 2321698177391185089, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 74.8685
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 2321698177391185089, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5168,11 +5168,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2321698177391185089, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -527.75104
+      value: -533.91
       objectReference: {fileID: 0}
     - target: {fileID: 2321698177391185089, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -869.10535
+      value: -882.5
       objectReference: {fileID: 0}
     - target: {fileID: 2321698177391185089, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5185,6 +5185,18 @@ PrefabInstance:
     - target: {fileID: 2321698177391185089, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450521038865394111, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
+      propertyPath: m_EffectColor.b
+      value: 0.5686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450521038865394111, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
+      propertyPath: m_EffectColor.g
+      value: 0.54901963
+      objectReference: {fileID: 0}
+    - target: {fileID: 3450521038865394111, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
+      propertyPath: m_EffectColor.r
+      value: 0.54901963
       objectReference: {fileID: 0}
     - target: {fileID: 3468607864795611889, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -5205,18 +5217,18 @@ PrefabInstance:
     - target: {fileID: 4373358610283032047, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1579412717, guid: 9872d3386f4b9974bb5a30ca36b4b0ab, type: 3}
+      objectReference: {fileID: 7482667652216324306, guid: 7e080a31c4c9ed84b98c26d00683ecaa, type: 3}
     - target: {fileID: 4373358610283032047, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.48235297
       objectReference: {fileID: 0}
     - target: {fileID: 4373358610283032047, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.227451
       objectReference: {fileID: 0}
     - target: {fileID: 4373358610283032047, guid: 8dd09fb649f38894fadef1510d82a038, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.21960786
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
