@@ -153,8 +153,10 @@ public class ProgrammingMinigameManager : MonoBehaviour
             }
 
             CodeBlock cb = codeBlocksList[i].GetComponent<CodeBlock>();
+            cb.ActiveColor(true);
             ParseCommand(cb.GetCommand());
             yield return new WaitForSeconds(executeWaitSeconds);
+            cb.ActiveColor(false);
             moveDrone = false;
             droneRB.linearVelocity = Vector2.zero;
         }

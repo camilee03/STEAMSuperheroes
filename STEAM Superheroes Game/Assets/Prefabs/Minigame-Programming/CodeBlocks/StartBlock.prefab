@@ -228,6 +228,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   command: 0
   canBeTrashed: 0
+  isStartBlock: 1
+  startBlockColor: {r: 0.21176472, g: 0.35686275, b: 0.20392159, a: 1}
 --- !u!114 &1592411380272335275
 MonoBehaviour:
   m_ObjectHideFlags: 0
