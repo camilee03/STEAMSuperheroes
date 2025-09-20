@@ -40,9 +40,23 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        playButton.GetComponent<Button>().enabled = false;
-        playButton.GetComponent<Image>().enabled = false;
-        playButton.transform.GetChild(0).gameObject.SetActive(false);
+        if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex)
+        {
+            playButton.GetComponent<Button>().enabled = false;
+            playButton.GetComponent<Image>().enabled = false;
+            playButton.transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex && level == mainMenuIndex)
+        {
+            if (playButton == null) playButton = GameObject.Find("Play");
+            playButton.GetComponent<Button>().enabled = false;
+            playButton.GetComponent<Image>().enabled = false;
+            playButton.transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
 
     #region Save/Load Data

@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterCreator.unity
     guid: 1cdbbe5eb25421e4fb04e228b3347c60
   - enabled: 1
+    path: Assets/Scenes/Achievements.unity
+    guid: fb5e42bffdc1e924994f7b2279c9ec4b
+  - enabled: 1
     path: Assets/Scenes/Pre-Minigames/PreMinigame1.unity
     guid: b67d234334250154a9f23e12c85515c1
   - enabled: 1
