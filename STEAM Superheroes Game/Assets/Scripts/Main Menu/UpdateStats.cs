@@ -7,6 +7,6 @@ public class UpdateStats : MonoBehaviour
 
     private void Update()
     {
-        currencyText.text = "Currency: " + Globals.Instance.score.ToString();
+        currencyText.text = $"Spend Coins ({Globals.Instance.score.ToString()})";
     }
 }

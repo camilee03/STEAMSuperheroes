@@ -81,16 +81,17 @@ public class OutfitManager : MonoBehaviour
         // Randomize skin
         colorScheme = Random.Range(0, 5);
         skinColor = colorScheme;
+        ChangeColorScheme(colorScheme);
         SetOutfit(Random.Range(1, 4), OutfitType.Face);
 
         SetOutfit(Random.Range(1, 3), OutfitType.Arms);
 
         // Randomize clothes
         int newColor = Random.Range(0, 3);
-        colorScheme = newColor;
+        ChangeColorScheme(newColor);
         SetOutfit(Random.Range(1, 5), OutfitType.Shirts);
 
-        colorScheme = newColor;
+        ChangeColorScheme(newColor);
         SetOutfit(Random.Range(1, 5), OutfitType.Pants);
 
         int changeHelmet = Random.Range(0, 2);
@@ -103,7 +104,9 @@ public class OutfitManager : MonoBehaviour
 
     public void SetOutfit(int outfit, OutfitType name)
     {
+        int initialColorScheme = colorScheme;
         ChangeOutfitType(name);
+        colorScheme = initialColorScheme;
 
         int outfitNum = (outfit - 1) * colorVar + colorScheme;
 
