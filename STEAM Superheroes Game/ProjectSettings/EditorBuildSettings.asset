@@ -27,13 +27,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Pre-Minigames/PreMinigame2.unity
     guid: 10d52e37bb623b24db09b355ed12c52b
   - enabled: 1
-    path: Assets/Scenes/Minigame2.unity
+    path: Assets/Scenes/Minigame2_Levels/Minigame2.1.unity
     guid: 87a44e1818383fc4ca2ef3d23aa13512
   - enabled: 1
     path: Assets/Scenes/Pre-Minigames/PreMinigame3.unity
     guid: caa65c02d06f8a6419420d053e60ac5a
   - enabled: 1
-    path: Assets/Scenes/Minigame3.unity
+    path: Assets/Scenes/Minigame3_Levels/Minigame3.unity
     guid: 8be4013b28fac4d41a7673363788cce9
   - enabled: 1
     path: Assets/Scenes/Pre-Minigames/PreMinigame4.unity

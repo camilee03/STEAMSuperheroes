@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   command: 4
   canBeTrashed: 1
+  isStartBlock: 0
 --- !u!114 &8597794441275953821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +115,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
