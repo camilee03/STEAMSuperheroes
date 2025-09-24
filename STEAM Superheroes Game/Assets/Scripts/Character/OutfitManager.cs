@@ -178,6 +178,7 @@ public class OutfitManager : MonoBehaviour
     {
         for (int i = 0; i < currentImages.Length; i++)
         {
+            if (i*colorVar*colorScheme >= currentTextures.Length) { Debug.Log("Index out of range"); }
             currentImages[i].texture = currentTextures[i * colorVar + colorScheme]; 
         }
     }
