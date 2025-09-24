@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager AudioManagerinstance {  get; private set; }
+    public static AudioManager Instance {  get; private set; }
 
     [Header("Audio Source")]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource SFXSource;
 
-    [SerializeField] private SoundData_SO soundBank;
-
     [SerializeField] private VolumeSettings volumeSettings;
+
+    public SoundData_SO soundBank;
 
     private BgmTrack currentBGMTrack = BgmTrack.None;
     private AudioClip bgmClip;
 
     private void Awake()
     {
-        if (AudioManagerinstance != null && AudioManagerinstance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            AudioManagerinstance = this;
+            Instance = this;
         }
         DontDestroyOnLoad(gameObject);
 
@@ -80,7 +80,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayButtonClick()
     {
-        AudioManagerinstance.PlaySFX(soundBank.buttonClick);
+        Instance.PlaySFX(soundBank.buttonClick);
     }
 
     public void PlaySFX(AudioClip clip)
