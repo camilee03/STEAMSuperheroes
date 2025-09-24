@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe5eae47f5751c46a3b73cb35e640be, type: 3}
+  m_Name: SoundBank
+  m_EditorClassIdentifier: 
+  mainMenuBgm: {fileID: 8300000, guid: 50c76367550db98469d73b5c78f32a1f, type: 3}
+  preMinigameBgm: {fileID: 8300000, guid: d6180177d86385f4392ccdfe47bf02a9, type: 3}
+  miningMinigameBgm: {fileID: 8300000, guid: c862358256b4ade4eb6fd2cffcd485b3, type: 3}
+  programmingMinigameBgm: {fileID: 8300000, guid: 583e7fa75feaefc43a9825c9ba2fdebb, type: 3}
+  circuitMinigameBgm: {fileID: 8300000, guid: a3126062424a49549a2683ba9ed65156, type: 3}
+  artMinigameBgm: {fileID: 8300000, guid: 8d260f7d8e37532428593f44ae6e3956, type: 3}
+  mathMinigameBgm: {fileID: 8300000, guid: 452fa530430be7447ac92b9791ca82b0, type: 3}
+  levelComplete: {fileID: 8300000, guid: 2c629558b37bb5a4cabb49c4bd2aa576, type: 3}
+  buttonClick: {fileID: 8300000, guid: 8f0f21ec9c60afb41b428dac8c279474, type: 3}
+  shapeGrabbed: {fileID: 0}
+  shapeReleased: {fileID: 0}
+  logicGateOptionsOpened: {fileID: 8300000, guid: 8f0f21ec9c60afb41b428dac8c279474, type: 3}
+  logicGateOptionSelected: {fileID: 8300000, guid: 8f0f21ec9c60afb41b428dac8c279474, type: 3}
+  logicGateEndSuccess: {fileID: 0}
+  logicGateEndFailure: {fileID: 0}
+  paintSelected: {fileID: 8300000, guid: 6b63076329ddd114da3282b92e70960c, type: 3}
+  paintApplied: {fileID: 8300000, guid: 6b63076329ddd114da3282b92e70960c, type: 3}
+  clickHexagon: {fileID: 8300000, guid: 0088e73729a01ad4ea3934c4e9905e3a, type: 3}
+  mineralCollected: {fileID: 8300000, guid: 127ecacbe118c0e42ad0a16c1d975751, type: 3}
+  satelliteCollected: {fileID: 0}
+  droneMoving: {fileID: 0}
