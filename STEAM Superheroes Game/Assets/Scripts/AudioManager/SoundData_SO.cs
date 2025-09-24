@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 public enum BgmTrack
 {
+    None,
     MAINMENU,
     PREMINIGAME,
     MINING,

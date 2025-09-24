@@ -13,7 +13,8 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private VolumeSettings volumeSettings;
 
-    private AudioClip currentBGM;
+    private BgmTrack currentBGMTrack = BgmTrack.None;
+    private AudioClip bgmClip;
 
     private void Awake()
     {
@@ -26,45 +27,54 @@ public class AudioManager : MonoBehaviour
             AudioManagerinstance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        // DEBUGGING
+        //if (PlayerPrefs.HasKey("masterVolume")) PlayerPrefs.DeleteKey("masterVolume");
+        //if (PlayerPrefs.HasKey("musicVolume")) PlayerPrefs.DeleteKey("musicVolume");
+        //if (PlayerPrefs.HasKey("sfxVolume")) PlayerPrefs.DeleteKey("sfxVolume");
     }
 
     private void Start()
     {
-        volumeSettings.InitializeVolume();
+        if(volumeSettings != null) volumeSettings.InitializeVolume();
         SetBGMTrack(BgmTrack.MAINMENU);
     }
 
     public void SetBGMTrack(BgmTrack bgmTrack)
     {
+        if (bgmTrack == currentBGMTrack) return;
+
         switch (bgmTrack)
         {
             case BgmTrack.PREMINIGAME:
-                currentBGM = soundBank.preMinigameBgm;
+                bgmClip = soundBank.preMinigameBgm;
                 break;
             case BgmTrack.MINING:
-                currentBGM = soundBank.miningMinigameBgm;
+                bgmClip = soundBank.miningMinigameBgm;
                 break;
             case BgmTrack.PROGRAMMING:
-                currentBGM = soundBank.programmingMinigameBgm;
+                bgmClip = soundBank.programmingMinigameBgm;
                 break;
             case BgmTrack.CIRCUIT:
-                currentBGM = soundBank.circuitMinigameBgm;
+                bgmClip = soundBank.circuitMinigameBgm;
                 break;
             case BgmTrack.ART:
-                currentBGM = soundBank.artMinigameBgm;
+                bgmClip = soundBank.artMinigameBgm;
                 break;
             case BgmTrack.MATH:
-                currentBGM = soundBank.mathMinigameBgm;
+                bgmClip = soundBank.mathMinigameBgm;
                 break;
             case BgmTrack.MAINMENU:
-                currentBGM = soundBank.mainMenuBgm;
+                bgmClip = soundBank.mainMenuBgm;
                 break;
             default:
-                currentBGM = soundBank.mainMenuBgm;
+                bgmClip = soundBank.mainMenuBgm;
                 break;
         }
 
-        musicSource.clip = currentBGM;
+        currentBGMTrack = bgmTrack;
+
+        musicSource.clip = bgmClip;
         musicSource.Play();
     }
 
