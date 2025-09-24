@@ -80,6 +80,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3268735567367287063, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: -3085829829358193969}
+    - target: {fileID: 3268735567367287063, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OpenSettingsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268735567367287063, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SettingsMenuButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268735567367287063, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7370630930395877613, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -171,8 +187,28 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7370630930395877613, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1550940235237458896}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8055105675469263153, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3085829829358193969}
   m_SourcePrefab: {fileID: 100100000, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
+--- !u!1 &8293386079007279593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8055105675469263153, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
+  m_PrefabInstance: {fileID: 2076578744917694680}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3085829829358193969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293386079007279593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62291e4ea48209d4ba744c0543747264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8834022438593546293 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7370630930395877613, guid: 78ed2419526ecaf41aa547433f78cb48, type: 3}
