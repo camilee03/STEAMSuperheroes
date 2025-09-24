@@ -2,5 +2,17 @@ using UnityEngine;
 
 public class SettingsMenuButton : MonoBehaviour
 {
-    public void OpenSettingsMenu() => GameObject.FindFirstObjectByType<PauseMenu>().OpenSoundSettingsMenu();
+    private PauseMenu pauseMenu;
+
+    private void Start()
+    {
+        pauseMenu = GameObject.FindFirstObjectByType<PauseMenu>();
+    }
+
+    public void OpenSettingsMenu()
+    {
+        if (pauseMenu == null) GameObject.FindFirstObjectByType<PauseMenu>().OpenPauseMenu();
+
+        pauseMenu.OpenPauseMenu();
+    }
 }

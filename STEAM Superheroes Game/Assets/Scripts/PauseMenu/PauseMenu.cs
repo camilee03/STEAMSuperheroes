@@ -48,6 +48,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (sceneIndex == doNotOpenSceneIdx[i])
             {
+                OpenSoundSettingsMenu();
                 return;
             }
         }
