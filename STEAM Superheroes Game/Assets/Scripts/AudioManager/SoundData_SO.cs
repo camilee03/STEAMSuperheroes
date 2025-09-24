@@ -39,8 +39,6 @@ public class SoundData_SO : ScriptableObject
     [Header("Circuit Minigame")]
     public AudioClip logicGateOptionsOpened;
     public AudioClip logicGateOptionSelected;
-    public AudioClip logicGateEndSuccess;
-    public AudioClip logicGateEndFailure;
 
     [Header("Math Minigame")]
     public AudioClip paintSelected;
