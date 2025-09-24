@@ -4,7 +4,8 @@ public class PauseMenu : MonoBehaviour
 {
     //This class handles all functions and methods for the pause menu
 
-    [SerializeField] GameObject pauseMenuCanvas = null;
+    [SerializeField] GameObject pauseMenuPopUp;
+    [SerializeField] GameObject SoundSettingsMenu;
     [SerializeField] int[] doNotOpenSceneIdx = null;
     bool pauseMenuOpen = false;
     public static PauseMenu PauseMenuInstance { get; private set; }
@@ -22,7 +23,7 @@ public class PauseMenu : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        pauseMenuCanvas.SetActive(false);
+        ClosePauseMenu();
     }
 
     //Detect Key Input to Open/Close pause menu
@@ -51,20 +52,38 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        pauseMenuCanvas.SetActive(true);
+        pauseMenuPopUp.SetActive(true);
         pauseMenuOpen = true;
     }
     //Make pause menu invisible
     public void ClosePauseMenu()
     {
-        pauseMenuCanvas.SetActive(false);
+        pauseMenuPopUp.SetActive(false);
         pauseMenuOpen = false;
+
+        CloseSoundSettingsMenu();
     }
     //Load main menu scene
     public void ToMainMenu()
     {
         ClosePauseMenu();
         LevelManager.Instance.LoadMainMenu();
+    }
+
+    public void OpenSoundSettingsMenu()
+    {
+        // hide pause menu if it was open
+        if(pauseMenuOpen) pauseMenuPopUp.SetActive(false);
+
+        SoundSettingsMenu.SetActive(true);
+    }
+
+    public void CloseSoundSettingsMenu()
+    {
+        SoundSettingsMenu.SetActive(false);
+
+        // reactivate pause menu if it was open
+        if (pauseMenuOpen) pauseMenuPopUp.SetActive(true);
     }
 
 }

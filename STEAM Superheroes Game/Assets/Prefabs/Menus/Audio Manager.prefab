@@ -48,21 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 6121283986755157056}
   SFXSource: {fileID: 3797568305044597612}
-  levelComplete: {fileID: 0}
-  buttonClick: {fileID: 8300000, guid: 8f0f21ec9c60afb41b428dac8c279474, type: 3}
-  backgroundMusic: {fileID: 0}
-  shapeGrabbed: {fileID: 0}
-  shapeReleased: {fileID: 0}
-  logicGateOptionsOpened: {fileID: 0}
-  logicGateOptionSelected: {fileID: 0}
-  logicGateEndSuccess: {fileID: 0}
-  logicGateEndFailure: {fileID: 0}
-  paintSelected: {fileID: 0}
-  paintApplied: {fileID: 0}
-  clickHexagon: {fileID: 0}
-  mineralCollected: {fileID: 0}
-  satelliteCollected: {fileID: 0}
-  droneMoving: {fileID: 0}
+  soundBank: {fileID: 11400000, guid: 6ee41415e4d7efc43a2a7b5e0b95ecae, type: 2}
 --- !u!1 &8532846873893187987
 GameObject:
   m_ObjectHideFlags: 0
