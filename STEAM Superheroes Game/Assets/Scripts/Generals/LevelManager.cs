@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,13 +9,12 @@ using static System.TimeZoneInfo;
 
 public class LevelManager : MonoBehaviour
 {
-
     [SerializeField] Texture2D[] levelImages;
 
     [Header("Main Menu Specific")]
     [SerializeField] RawImage currentLevel;
     [SerializeField] TMP_Text levelLockedText;
-    [SerializeField] GameObject playButton;
+    GameObject playButton;
 
     bool textFading;
     int finalLevelIndex = 14;
@@ -38,26 +38,23 @@ public class LevelManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+
+    private void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex)
+        if (Globals.Instance.gameLoaded && playButton == null && SceneManager.GetActiveScene().buildIndex == mainMenuIndex)
         {
-            playButton.GetComponent<Button>().enabled = false;
-            playButton.GetComponent<Image>().enabled = false;
-            playButton.transform.GetChild(0).gameObject.SetActive(false);
+            FindPlayButton();
         }
+    }
+    private void FindPlayButton()
+    {
+        playButton = GameObject.FindGameObjectWithTag("PlayButton");
+
+        if (playButton == null) return;
+        playButton.transform.GetChild(0).gameObject.SetActive(false);
+        playButton.transform.GetChild(1).gameObject.SetActive(false);
     }
 
-    private void OnLevelWasLoaded(int level)
-    {
-        if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex && level == mainMenuIndex)
-        {
-            if (playButton == null) playButton = GameObject.Find("Play");
-            playButton.GetComponent<Button>().enabled = false;
-            playButton.GetComponent<Image>().enabled = false;
-            playButton.transform.GetChild(0).gameObject.SetActive(false);
-        }
-    }
 
     #region Save/Load Data
 
@@ -168,11 +165,10 @@ public class LevelManager : MonoBehaviour
     /// <summary> Determines what the current level to load is </summary>
     public void SetNewLevel(int levelNumber)
     {
-        if (playButton == null) playButton = GameObject.Find("Play");
+        if (playButton == null) playButton = GameObject.FindGameObjectWithTag("PlayButton");
 
         playButton.transform.GetChild(0).gameObject.SetActive(true);
-        playButton.GetComponent<Button>().enabled = true;
-        playButton.GetComponent<Image>().enabled = true;
+        playButton.transform.GetChild(1).gameObject.SetActive(true);
 
         string levelName = "PreMinigame" + levelNumber;
 

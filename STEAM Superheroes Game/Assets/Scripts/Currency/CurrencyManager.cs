@@ -2,24 +2,25 @@ using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
-    struct Items
+
+    Rewards selectedReward;
+
+    public void OnBuyItem()
     {
-        string name;
-        int cost;
-        ItemType type;
+        bool transactionComplete = selectedReward.PerformAction();
+
+        if (transactionComplete)
+        {
+            // display "bought" message
+        }
+        else
+        {
+            // display "not enough funds" message
+        }
     }
 
-    enum ItemType { Outfit, Buff }
-
-    private void SpendCurrency(int amount)
+    public void OnSelectItem(Rewards newReward)
     {
-        Globals.Instance.score -= amount;
+        selectedReward = newReward;
     }
-
-    private void ClaimCurrency(int amount)
-    {
-        Globals.Instance.score += amount;
-    }
-
-
 }
