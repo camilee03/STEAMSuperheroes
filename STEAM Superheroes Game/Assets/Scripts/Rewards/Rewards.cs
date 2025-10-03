@@ -1,13 +1,28 @@
+using TMPro;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "Rewards", menuName = "Scriptable Objects/Rewards")]
-public class Rewards : ScriptableObject
+using UnityEngine.UI;
+public class Rewards : MonoBehaviour
 {
+    [Header("Classification")]
     [SerializeField] string visualName;
     [SerializeField] string description;
     [SerializeField] int cost;
     [SerializeField] ItemType type;
     [SerializeField] BuyOrSell type2;
+
+    [Header("UI Elements")]
+    [SerializeField] Text nameText;
+    [SerializeField] Text descriptionText;
+    [SerializeField] TMP_Text costText;
+    [SerializeField] Toggle toggle;
+
+    private void Start()
+    {
+        nameText.text = visualName;
+        descriptionText.text = description;
+        costText.text = cost.ToString();
+    }
+
     bool used = false;
 
     enum ItemType { Outfit, Buff }
@@ -19,9 +34,13 @@ public class Rewards : ScriptableObject
 
         if (Globals.Instance.score >= cost)
         {
+            // Buy item
             Globals.Instance.score -= cost;
-            used = true;
             if (type == ItemType.Outfit) { AddOutfitToList(); }
+
+            // Disable Item from being bought again
+            used = true; toggle.interactable = false;
+
             return true;
         }
         else return false;
