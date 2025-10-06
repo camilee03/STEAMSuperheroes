@@ -46,12 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelImages:
   - {fileID: 2800000, guid: b7cd69e6bb32d2e49b271cb5540d83ef, type: 3}
-  - {fileID: 2800000, guid: cd5cbe89e2c50e749b804c9359c1f587, type: 3}
-  - {fileID: 2800000, guid: 59a86b3d3656b754fbb6548d58128d30, type: 3}
+  - {fileID: 2800000, guid: d611f6c846eed9d408af212407ba2b26, type: 3}
+  - {fileID: 2800000, guid: 6f34cd8a913e1cd46ab78effac6ba296, type: 3}
   - {fileID: 2800000, guid: 6fcfdea5c6ccb174799ecc9243d17a10, type: 3}
   - {fileID: 2800000, guid: 30a4845027d649047aad2619b9cde349, type: 3}
   - {fileID: 2800000, guid: 93851aa6e27de6746abb98e672597942, type: 3}
   currentLevel: {fileID: 0}
   levelLockedText: {fileID: 0}
-  playButton: {fileID: 0}
   finalLevelUnlocked: 0
