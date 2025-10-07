@@ -7,6 +7,11 @@ public class CurrencyManager : MonoBehaviour
     [SerializeField] ToggleGroup storeToggleGroup;
     [SerializeField] ToggleGroup rewardToggleGroup;
 
+    private void Start()
+    {
+        // change not achieved toggles to disabled
+    }
+
     public void OnBuyItem()
     {
         if (!storeToggleGroup.AnyTogglesOn()) return; // display "no item selected" message

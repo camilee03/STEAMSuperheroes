@@ -50,7 +50,15 @@ public class Rewards : MonoBehaviour
     {
         if (used) return true;
         // -- TBI: if condition is met
-        else return false;
+        else if (AchievementManager.Instance.CheckAchievement(name))
+        {
+            // disable, etc
+            used = true;
+
+            return true;
+        }
+
+        return false;
     }
 
     public bool PerformAction()

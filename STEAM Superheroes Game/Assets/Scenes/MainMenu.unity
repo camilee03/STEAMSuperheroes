@@ -991,6 +991,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201924004}
   m_CullTransparentMesh: 1
+--- !u!1001 &202210213
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.633217
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -13.359416
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 183.9751
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814296670195255461, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976811449454971430, guid: 34ef501f368117548b5557784c07d358, type: 3}
+      propertyPath: m_Name
+      value: AchievementManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 34ef501f368117548b5557784c07d358, type: 3}
 --- !u!1 &229408106
 GameObject:
   m_ObjectHideFlags: 0
@@ -3214,6 +3271,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3119696093422427428, guid: 34ef501f368117548b5557784c07d358, type: 3}
+        m_TargetAssemblyTypeName: AchievementManager, Assembly-CSharp
+        m_MethodName: CompleteAchievement
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Educated
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1542824251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4942,3 +5011,4 @@ SceneRoots:
   - {fileID: 1826405334}
   - {fileID: 1457125874916328474}
   - {fileID: 1848511149}
+  - {fileID: 202210213}
